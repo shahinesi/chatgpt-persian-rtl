@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">ChatGPT Persian RTL</title>
+  <desc id="desc">Smart right-to-left support for Persian ChatGPT conversations</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#123b35"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="420" rx="32" fill="url(#bg)"/>
+  <circle cx="1020" cy="70" r="160" fill="#10a37f" opacity=".12"/>
+  <circle cx="1100" cy="350" r="220" fill="#10a37f" opacity=".08"/>
+  <g transform="translate(92 102)">
+    <rect width="216" height="216" rx="52" fill="#10a37f"/>
+    <path d="M55 62h106a18 18 0 0 1 18 18v58a18 18 0 0 1-18 18h-48l-32 28v-28H55a18 18 0 0 1-18-18V80a18 18 0 0 1 18-18Z" fill="#fff"/>
+    <path d="M72 96h90M72 122h62" stroke="#10a37f" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <text x="360" y="165" fill="#fff" font-family="system-ui,Segoe UI,sans-serif" font-size="58" font-weight="750">ChatGPT Persian RTL</text>
+  <text x="360" y="228" fill="#b8d7cf" font-family="system-ui,Segoe UI,sans-serif" font-size="28">Smart RTL for messages and composer — nothing else.</text>
+  <g transform="translate(360 270)" font-family="system-ui,Segoe UI,sans-serif" font-size="20">
+    <rect width="156" height="44" rx="22" fill="#fff" opacity=".08"/>
+    <text x="24" y="29" fill="#d8eee8">Manifest V3</text>
+    <rect x="172" width="202" height="44" rx="22" fill="#fff" opacity=".08"/>
+    <text x="196" y="29" fill="#d8eee8">Minimal permissions</text>
+    <rect x="390" width="166" height="44" rx="22" fill="#fff" opacity=".08"/>
+    <text x="414" y="29" fill="#d8eee8">No tracking</text>
+  </g>
+</svg>

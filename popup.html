@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChatGPT Persian RTL</title>
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      width: 290px;
+      margin: 0;
+      padding: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: Canvas;
+      color: CanvasText;
+    }
+    .header { margin-bottom: 14px; }
+    h1 { margin: 0 0 5px; font-size: 16px; }
+    p { margin: 0; font-size: 12px; line-height: 1.7; opacity: .72; }
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 13px;
+      border: 1px solid color-mix(in srgb, CanvasText 16%, transparent);
+      border-radius: 12px;
+    }
+    .label { font-size: 14px; font-weight: 650; }
+    .status { margin-top: 3px; font-size: 11px; opacity: .7; }
+    .switch { position: relative; width: 44px; height: 24px; flex: 0 0 auto; }
+    .switch input { position: absolute; opacity: 0; pointer-events: none; }
+    .slider {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: color-mix(in srgb, CanvasText 22%, transparent);
+      cursor: pointer;
+      transition: 160ms ease;
+    }
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      top: 3px;
+      right: 3px;
+      border-radius: 50%;
+      background: Canvas;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .28);
+      transition: 160ms ease;
+    }
+    input:checked + .slider { background: #10a37f; }
+    input:checked + .slider::before { transform: translateX(-20px); }
+    input:focus-visible + .slider { outline: 2px solid Highlight; outline-offset: 2px; }
+    .footer { margin-top: 12px; font-size: 11px; line-height: 1.7; opacity: .62; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>ChatGPT Persian RTL</h1>
+    <p>فقط متن پیام‌ها و کادر نوشتن را راست‌چین می‌کند.</p>
+  </div>
+
+  <div class="card">
+    <div>
+      <div class="label">راست‌چین هوشمند</div>
+      <div id="status" class="status" aria-live="polite">در حال خواندن تنظیمات…</div>
+    </div>
+
+    <label class="switch" aria-label="فعال یا غیرفعال‌کردن راست‌چین">
+      <input id="toggle" type="checkbox">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="footer">
+    پیام انگلیسی LTR و پیام فارسی/عربی RTL نمایش داده می‌شود؛ کد، فرمول و جدول همیشه LTR باقی می‌ماند.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

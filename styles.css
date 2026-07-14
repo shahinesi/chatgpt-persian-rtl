@@ -1,0 +1,52 @@
+/*
+ * All rules are scoped to elements explicitly marked by content.js or to
+ * technical descendants of semantic ChatGPT message containers.
+ * Nothing targets html, body, main, sidebars, headers, menus, modals or buttons globally.
+ */
+
+:where(
+  [data-cgpt-rtl-managed="block"],
+  [data-cgpt-rtl-managed="composer"]
+)[data-cgpt-rtl-dir="rtl"] {
+  direction: rtl !important;
+  text-align: right !important;
+  unicode-bidi: plaintext;
+}
+
+:where(
+  [data-cgpt-rtl-managed="block"],
+  [data-cgpt-rtl-managed="composer"]
+)[data-cgpt-rtl-dir="ltr"] {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: plaintext;
+}
+
+/* Preserve LTR behavior for code, formulas and tables. */
+:where(
+  [data-message-author-role="user"],
+  [data-message-author-role="assistant"]
+) :where(
+  pre,
+  code,
+  kbd,
+  samp,
+  table,
+  math,
+  .katex,
+  .MathJax,
+  [data-math],
+  [data-language]
+) {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: isolate !important;
+}
+
+/* Isolate inline technical fragments and links inside RTL prose. */
+:where(
+  [data-message-author-role="user"],
+  [data-message-author-role="assistant"]
+) :where(code, kbd, samp, a[href], bdi) {
+  unicode-bidi: isolate !important;
+}

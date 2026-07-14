@@ -1,0 +1,26 @@
+name: Feature request
+description: Suggest a focused improvement that preserves the extension scope
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Scope constraints
+      options:
+        - label: The proposal keeps the sidebar, menus, header, buttons, dialogs and layout unchanged.
+          required: true
+        - label: The proposal does not require unnecessary permissions, tracking or remote code.
+          required: true
