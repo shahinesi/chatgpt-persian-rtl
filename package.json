@@ -2,7 +2,8 @@
   "name": "chatgpt-persian-rtl-workspace",
   "private": true,
   "scripts": {
-    "test": "npm --prefix chrome-plugin test",
+    "test": "npm --prefix chrome-plugin test && npm --prefix desktop test",
+    "test:desktop": "npm --prefix desktop test",
     "build": "npm --prefix chrome-plugin run build"
   }
 }

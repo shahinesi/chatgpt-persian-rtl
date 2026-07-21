@@ -1,0 +1,27 @@
+{
+  "name": "chatgpt-persian-rtl-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ChatGPT Desktop RTL patcher for macOS and Windows.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "chatgpt-rtl-patcher": "bin/chatgpt-rtl-patcher.mjs"
+  },
+  "scripts": {
+    "patch": "node bin/chatgpt-rtl-patcher.mjs",
+    "restore": "node bin/chatgpt-rtl-patcher.mjs --restore",
+    "patch:macos": "node bin/chatgpt-rtl-patcher.mjs --platform=macos",
+    "restore:macos": "node bin/chatgpt-rtl-patcher.mjs --platform=macos --restore",
+    "patch:windows": "node bin/chatgpt-rtl-patcher.mjs --platform=windows",
+    "restore:windows": "node bin/chatgpt-rtl-patcher.mjs --platform=windows --restore",
+    "test": "node --check bin/chatgpt-rtl-patcher.mjs"
+  },
+  "dependencies": {
+    "@electron/asar": "^3.2.18",
+    "plist": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

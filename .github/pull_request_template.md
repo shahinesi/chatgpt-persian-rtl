@@ -1,19 +1,20 @@
-## Summary
+## خلاصه
 
-Describe the change and why it is needed.
+تغییر انجام‌شده و دلیل آن را کوتاه توضیح دهید.
 
-## Validation
+## اعتبارسنجی
 
 - [ ] `npm test` passes
-- [ ] Extension loads without errors
-- [ ] Persian/Arabic messages remain RTL
-- [ ] English messages remain LTR
-- [ ] Code, formulas and tables remain LTR
-- [ ] Composer caret behavior is natural
-- [ ] No sidebar, header, menu, modal, control or layout regression
+- [ ] افزونه بدون خطا load می‌شود
+- [ ] پیام‌های فارسی و عربی RTL می‌مانند
+- [ ] پیام‌های انگلیسی LTR می‌مانند
+- [ ] کد، فرمول و جدول LTR می‌مانند
+- [ ] رفتار نشانگر در کادر نوشتن طبیعی است
+- [ ] در نوار کناری، سربرگ، منو، پنجره شناور، کنترل‌ها یا چیدمان regression دیده نشد
+- [ ] اگر تغییر مربوط به دسکتاپ است، patch و restore روی سیستم‌عامل هدف بررسی شد
 
-## Scope
+## محدوده
 
-- [ ] No new permission was added without a clear justification
-- [ ] No remote code, analytics or tracking was introduced
-- [ ] Selectors remain semantic and narrowly scoped
+- [ ] مجوز جدید بدون دلیل روشن اضافه نشده است
+- [ ] کد راه‌دور، ابزار تحلیل یا رهگیری اضافه نشده است
+- [ ] انتخاب‌گرها معنایی و محدود باقی مانده‌اند

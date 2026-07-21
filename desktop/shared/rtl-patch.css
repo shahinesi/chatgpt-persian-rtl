@@ -1,0 +1,50 @@
+/* ChatGPT Persian RTL desktop patch */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("__VAZIRMATN_REGULAR__") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("__VAZIRMATN_BOLD__") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:where(
+  [data-message-author-role="user"],
+  [data-message-author-role="assistant"],
+  #prompt-textarea,
+  form [role="textbox"][contenteditable="true"],
+  form textarea
+) {
+  font-family: "Vazirmatn", "Tahoma", "Segoe UI", system-ui, sans-serif !important;
+  unicode-bidi: plaintext !important;
+  text-align: start !important;
+}
+
+:where([data-message-author-role="user"], [data-message-author-role="assistant"]) :where(
+  pre,
+  code,
+  kbd,
+  samp,
+  table,
+  math,
+  .katex,
+  .MathJax,
+  [data-math],
+  [data-language]
+) {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: isolate !important;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
+}
+
+:where([data-message-author-role="user"], [data-message-author-role="assistant"]) :where(code, kbd, samp, a[href], bdi) {
+  unicode-bidi: isolate !important;
+}

@@ -1,21 +1,64 @@
 # بسته‌ی دسکتاپ برای ChatGPT
 
-این پوشه برای مسیر macOS / ChatGPT Desktop است.
+این پوشه مسیر دسکتاپ پروژه است و به دو بخش جدا تقسیم شده:
 
-هدف این بخش:
+| مسیر | کاربرد |
+|---|---|
+| `macos/` | نصب و بازگردانی ChatGPT Desktop روی macOS |
+| `windows/` | نصب و بازگردانی ChatGPT Desktop روی Windows |
+| `bin/` | patcher مشترک برای هر دو سیستم‌عامل |
+| `shared/` | CSS مشترک RTL و فونت Vazirmatn |
 
-- بسته‌بندی جدا از افزونه‌ی Chrome
-- نگه‌داشتن فونت و RTL در خروجی دسکتاپ
-- داشتن مسیر مشخص برای نصب و بازگردانی
+## ایده فنی
 
-## نصب
+این بخش از الگوی patcher دسکتاپ Electron الهام گرفته است: پیدا کردن `app.asar`، ساخت نسخه‌ی پشتیبان، استخراج، تزریق CSS/JS، بسته‌بندی دوباره و امکان Restore.
 
-در نسخه‌ی نهایی، نصب باید بدون Node.js برای کاربر نهایی قابل انجام باشد.
+در macOS علاوه بر repack، hash مربوط به `ElectronAsarIntegrity` در `Info.plist` به‌روزرسانی می‌شود و signature/quarantine پاک می‌شود تا برنامه بعد از تغییر فایل asar اجرا شود.
+
+در Windows مسیرهای رایج نصب ChatGPT بررسی می‌شوند و اگر برنامه در مسیر سفارشی نصب شده باشد، می‌توان مسیر برنامه یا خود `app.asar` را به دستور داد.
+
+## نصب سریع
+
+```bash
+cd desktop
+npm install
+npm run patch:macos
+```
+
+برای Windows:
+
+```powershell
+cd desktop
+npm install
+npm run patch:windows
+```
 
 ## بازگردانی
 
-فرآیند Restore باید همیشه نسخه‌ی پشتیبان را برگرداند و تغییرات را به وضعیت اولیه بازگرداند.
+```bash
+cd desktop
+npm run restore:macos
+```
 
-## نکته توسعه
+برای Windows:
 
-اگر ساختار داخلی نسخه‌ی دسکتاپ تغییر کند، این پوشه باید قبل از هر چیز به‌روزرسانی شود و README آن هم‌زمان با مسیرهای کد هماهنگ بماند.
+```powershell
+cd desktop
+npm run restore:windows
+```
+
+## مسیر سفارشی
+
+اگر ChatGPT در مسیر پیش‌فرض نیست، مسیر `ChatGPT.app`، پوشه نصب یا فایل `app.asar` را به دستور اضافه کنید.
+
+```bash
+npm run patch:macos -- /Applications/ChatGPT.app
+```
+
+```powershell
+npm run patch:windows -- "$env:LOCALAPPDATA\Programs\ChatGPT\resources\app.asar"
+```
+
+## بسته آماده بدون Node.js
+
+در حالت توسعه، patcher با Node.js اجرا می‌شود. خروجی انتشار باید به‌صورت binary یا installer بسته‌بندی شود تا کاربر نهایی به Node.js نیاز نداشته باشد.
