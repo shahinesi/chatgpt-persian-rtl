@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Security vulnerability
+  - name: آسیب‌پذیری امنیتی
     url: https://github.com/shahinesi/chatgpt-persian-rtl/security/advisories/new
-    about: Report security issues privately.
+    about: مشکلات امنیتی را به‌صورت خصوصی گزارش کنید.

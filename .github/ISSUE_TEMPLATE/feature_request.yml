@@ -1,26 +1,37 @@
-name: Feature request
-description: Suggest a focused improvement that preserves the extension scope
-title: "[Feature]: "
+name: درخواست قابلیت
+description: پیشنهاد یک بهبود مشخص برای نسخه وب یا دسکتاپ
+title: "[قابلیت]: "
 labels: ["enhancement"]
 body:
+  - type: dropdown
+    id: target
+    attributes:
+      label: بخش مرتبط
+      options:
+        - افزونه کروم / وب
+        - دسکتاپ macOS
+        - دسکتاپ Windows
+        - مستندات
+    validations:
+      required: true
   - type: textarea
     id: problem
     attributes:
-      label: Problem or use case
+      label: مسئله یا کاربرد
     validations:
       required: true
   - type: textarea
     id: proposal
     attributes:
-      label: Proposed solution
+      label: راه‌حل پیشنهادی
     validations:
       required: true
   - type: checkboxes
     id: constraints
     attributes:
-      label: Scope constraints
+      label: محدودیت‌های محدوده
       options:
-        - label: The proposal keeps the sidebar, menus, header, buttons, dialogs and layout unchanged.
+        - label: پیشنهاد، چیدمان و کنترل‌های اصلی ChatGPT را بی‌دلیل تغییر نمی‌دهد.
           required: true
-        - label: The proposal does not require unnecessary permissions, tracking or remote code.
+        - label: پیشنهاد به مجوز غیرضروری، رهگیری یا کد راه‌دور نیاز ندارد.
           required: true

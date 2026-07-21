@@ -1,54 +1,54 @@
-name: Bug report
-description: Report an RTL, LTR, layout or compatibility problem
-title: "[Bug]: "
+name: گزارش باگ
+description: گزارش مشکل RTL، LTR، چیدمان یا سازگاری
+title: "[باگ]: "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
-      value: Thanks for reporting a problem. Please remove private conversation content from screenshots and examples.
+      value: لطفا محتوای خصوصی گفتگوها را از screenshot و نمونه‌ها حذف کنید.
   - type: input
     id: version
     attributes:
-      label: Extension version
+      label: نسخه پروژه
       placeholder: 1.0.0
     validations:
       required: true
   - type: dropdown
-    id: browser
+    id: target
     attributes:
-      label: Browser
+      label: بخش مرتبط
       options:
-        - Google Chrome
-        - Microsoft Edge
-        - Other Chromium-based browser
+        - افزونه کروم / وب
+        - دسکتاپ macOS
+        - دسکتاپ Windows
     validations:
       required: true
   - type: textarea
     id: description
     attributes:
-      label: Problem
-      description: What happened and what did you expect?
+      label: مشکل
+      description: چه اتفاقی افتاد و انتظار چه رفتاری داشتید؟
     validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
-      label: Reproduction steps
+      label: مراحل بازتولید
       placeholder: |
-        1. Open ...
-        2. Type ...
-        3. Observe ...
+        1. باز کنید ...
+        2. تایپ کنید ...
+        3. مشاهده کنید ...
     validations:
       required: true
   - type: textarea
     id: sample
     attributes:
-      label: Minimal text sample
-      description: Use a non-sensitive example that reproduces the direction issue.
+      label: نمونه متن حداقلی
+      description: از نمونه غیرحساس استفاده کنید که مشکل جهت متن را بازتولید کند.
   - type: checkboxes
     id: scope
     attributes:
-      label: Scope check
+      label: بررسی محدوده
       options:
-        - label: The issue affects message text or the composer, not a request to RTL the entire ChatGPT interface.
+        - label: مشکل به متن پیام، کادر نوشتن یا patch دسکتاپ مربوط است و درخواست راست‌چین کردن کل رابط ChatGPT نیست.
           required: true

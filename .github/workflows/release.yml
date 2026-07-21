@@ -29,4 +29,4 @@ jobs:
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "${GITHUB_REF_NAME}" dist/*.zip --generate-notes --verify-tag
+        run: gh release create "${GITHUB_REF_NAME}" chrome-plugin/dist/*.zip --generate-notes --verify-tag
