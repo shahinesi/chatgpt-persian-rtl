@@ -1,26 +1,26 @@
-# Contributing
+# راهنمای مشارکت
 
-Thank you for helping improve ChatGPT Persian RTL.
+از اینکه برای بهتر شدن ChatGPT Persian RTL وقت می‌گذارید ممنونم.
 
-## Development workflow
+## روند توسعه
 
-1. Fork the repository and create a focused branch.
-2. Make the smallest change required.
-3. Run `npm test`.
-4. Run `npm run build` and install the generated ZIP as an unpacked extension for manual verification.
-5. Open a pull request describing the problem, approach and test results.
+1. از مخزن یک انشعاب بگیرید و یک شاخه‌ی متمرکز بسازید.
+2. کوچک‌ترین تغییر لازم را اعمال کنید.
+3. `npm test` را اجرا کنید.
+4. `npm run build` را اجرا کنید و ZIP تولیدشده را برای بررسی دستی به‌صورت unpacked نصب کنید.
+5. یک درخواست ادغام باز کنید و در آن مسئله، راه‌حل و نتیجه‌ی تست را توضیح دهید.
 
-## Manual test checklist
+## چک‌لیست تست دستی
 
-- Persian and Arabic messages render RTL.
-- Fully English messages render LTR.
-- Mixed Persian/English text remains readable.
-- Code blocks, inline code, formulas and tables remain LTR.
-- Streaming responses update correctly.
-- The composer caret and Arrow/Home/End behavior remain natural.
-- Sidebar, header, model picker, menus, buttons and modals remain unchanged.
-- Disabling the extension removes all managed attributes immediately.
+- پیام‌های فارسی و عربی به‌صورت RTL نمایش داده شوند.
+- پیام‌های کاملا انگلیسی به‌صورت LTR نمایش داده شوند.
+- متن ترکیبی فارسی و انگلیسی خوانا باقی بماند.
+- code block، کد درون‌خطی، فرمول و جدول LTR بمانند.
+- پاسخ‌های در حال تولید درست به‌روزرسانی شوند.
+- رفتار نشانگر و کلیدهای Arrow/Home/End در کادر نوشتن طبیعی بماند.
+- نوار کناری، سربرگ، انتخاب‌گر مدل، منوها، دکمه‌ها و پنجره‌های شناور بدون تغییر بمانند.
+- با غیرفعال‌کردن افزونه، همه‌ی attributeهای مدیریت‌شده بلافاصله حذف شوند.
 
-## Selector changes
+## تغییر انتخاب‌گرها
 
-Prefer semantic attributes such as `data-message-author-role` and `#prompt-textarea`. Do not introduce broad selectors for `html`, `body`, `main`, generated class names or the entire application shell.
+تا جای ممکن از انتخاب‌گرهای معنایی مثل `data-message-author-role` و `#prompt-textarea` استفاده کنید. انتخاب‌گرهای گسترده برای `html`، `body`، `main`، کلاس‌های تولیدشده یا کل پوسته‌ی برنامه اضافه نکنید.

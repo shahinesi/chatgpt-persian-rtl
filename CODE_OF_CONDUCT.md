@@ -1,5 +1,5 @@
-# Code of Conduct
+# آیین مشارکت
 
-Be respectful, constructive and focused on improving the project. Harassment, discrimination, personal attacks and disruptive behavior are not accepted.
+در همه‌ی تعامل‌ها محترمانه، سازنده و متمرکز بر بهبود پروژه رفتار کنید. آزار، تبعیض، حمله‌ی شخصی و رفتار مخرب پذیرفته نیست.
 
-Project maintainers may edit, remove or reject contributions and interactions that violate these expectations. Serious or repeated violations may result in temporary or permanent exclusion from project spaces.
+نگه‌دارندگان پروژه می‌توانند مشارکت‌ها و تعامل‌هایی را که با این اصول ناسازگار است ویرایش، حذف یا رد کنند. تخلف جدی یا تکرارشونده می‌تواند به محرومیت موقت یا دائمی از فضاهای پروژه منجر شود.

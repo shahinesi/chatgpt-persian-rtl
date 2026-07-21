@@ -1,0 +1,15 @@
+{
+  "name": "chatgpt-persian-rtl",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A minimal Manifest V3 extension that adds smart Persian/Arabic RTL support to ChatGPT conversation text and composer only.",
+  "license": "MIT",
+  "author": "Shahin Eskandari",
+  "scripts": {
+    "test": "node --check content.js && node --check popup.js && node scripts/validate.mjs",
+    "build": "bash scripts/package.sh"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,20 +1,20 @@
-# Changelog
+# تغییرات
 
-All notable changes to this project will be documented in this file.
+همه‌ی تغییرات مهم این پروژه در این فایل ثبت می‌شود.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+ساختار این فایل بر اساس [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) است
+و نسخه‌گذاری پروژه از [Semantic Versioning](https://semver.org/spec/v2.0.0.html) پیروی می‌کند.
 
-## [Unreleased]
+## [منتشرنشده]
 
 ## [1.0.0] - 2026-07-14
 
-### Added
+### اضافه‌شده
 
-- Smart Persian and Arabic RTL detection for ChatGPT messages.
-- Automatic LTR handling for fully English messages.
-- RTL/LTR switching in the ChatGPT composer without modifying its value or selection.
-- LTR isolation for code blocks, inline code, formulas, tables, links and technical fragments.
-- MutationObserver support for streamed responses, new messages and conversation navigation.
-- Popup toggle persisted through `chrome.storage.local`.
-- Minimal Manifest V3 permissions and official ChatGPT domain restrictions.
+- تشخیص هوشمند RTL برای پیام‌های فارسی و عربی در ChatGPT
+- تشخیص خودکار LTR برای پیام‌های کاملا انگلیسی
+- جابه‌جایی RTL/LTR در کادر نوشتن بدون تغییر مقدار یا ناحیه‌ی انتخاب
+- ایزوله‌سازی LTR برای code block، کد درون‌خطی، فرمول، جدول، لینک و بخش‌های فنی
+- پشتیبانی از `MutationObserver` برای پاسخ‌های در حال تولید، پیام‌های جدید و جابه‌جایی بین گفتگوها
+- ذخیره وضعیت روشن و خاموش از طریق `chrome.storage.local`
+- مجوزهای حداقلی Manifest V3 و محدودسازی اجرا به دامنه‌های رسمی ChatGPT

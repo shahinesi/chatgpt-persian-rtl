@@ -52,7 +52,10 @@
   ].join(',');
 
   const RTL_CHAR = /[\u0590-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF]/u;
-  const LATIN_CHAR = /[A-Za-z]/u;
+  const RTL_RUN = /[\u0590-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF]+/gu;
+  const LATIN_RUN = /[A-Za-z]+/gu;
+  const LEADING_DECORATION = /^(?:[\s\u00a0\u200e\u200f\u202a-\u202e\u2066-\u2069]+|(?:[•●◦▪▫‣⁃*-]+|[-–—]+|(?:[\[(\{]\s*)?(?:\d+|[۰-۹]+)(?:[\].,):\}\]]\s*)?))/u;
+  const URL_PATTERN = /https?:\/\/\S+|www\.\S+/giu;
 
   let enabled = false;
   let observer = null;
@@ -65,33 +68,59 @@
     return location.hostname === 'chatgpt.com' || location.hostname === 'chat.openai.com';
   }
 
-  function detectDirection(text, emptyDirection = 'ltr') {
-    if (!text || !text.trim()) return emptyDirection;
+  function normalizeDirectionalSample(text) {
+    if (!text) return '';
 
-    let rtlCount = 0;
-    let latinCount = 0;
-    let firstStrong = null;
+    let sample = text.replace(URL_PATTERN, ' ');
+    sample = sample.replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069]/gu, '');
 
-    for (const char of text) {
-      if (RTL_CHAR.test(char)) {
-        rtlCount += 1;
-        firstStrong ??= 'rtl';
-      } else if (LATIN_CHAR.test(char)) {
-        latinCount += 1;
-        firstStrong ??= 'ltr';
-      }
+    let previous = '';
+    while (sample !== previous) {
+      previous = sample;
+      sample = sample.replace(LEADING_DECORATION, '');
     }
+
+    return sample.replace(/\s+/gu, ' ').trim();
+  }
+
+  function countDirectionalRuns(text, pattern) {
+    const matches = text.match(pattern);
+    if (!matches) return 0;
+
+    return matches.length;
+  }
+
+  function firstStrongDirection(text) {
+    for (const char of text) {
+      if (RTL_CHAR.test(char)) return 'rtl';
+      if (/[A-Za-z]/u.test(char)) return 'ltr';
+    }
+
+    return null;
+  }
+
+  function detectDirection(text, emptyDirection = 'ltr') {
+    const sample = normalizeDirectionalSample(text);
+    if (!sample) return emptyDirection;
+
+    const rtlCount = countDirectionalRuns(sample, RTL_RUN);
+    const latinCount = countDirectionalRuns(sample, LATIN_RUN);
+    const firstStrong = firstStrongDirection(sample);
 
     if (rtlCount === 0 && latinCount === 0) return emptyDirection;
     if (rtlCount === 0) return 'ltr';
     if (latinCount === 0) return 'rtl';
 
-    const rtlRatio = rtlCount / (rtlCount + latinCount);
+    if (firstStrong === 'rtl') return 'rtl';
 
-    // Keep Persian sentences with embedded technical English terms RTL.
-    if (rtlCount >= 2 && rtlRatio >= 0.25) return 'rtl';
+    const total = rtlCount + latinCount;
+    const rtlRatio = rtlCount / total;
 
-    return firstStrong ?? emptyDirection;
+    // Mixed Persian sentences should stay RTL even when they begin with English
+    // tokens, bullets, numbering, or URLs.
+    if (rtlCount > latinCount && rtlRatio >= 0.6) return 'rtl';
+
+    return 'ltr';
   }
 
   function isExcludedElement(element, boundary) {

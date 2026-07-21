@@ -1,0 +1,6 @@
+Vazirmatn font bundled with permission-friendly distribution practices in mind.
+
+Source: https://rastikerdar.github.io/vazirmatn/
+Project: https://github.com/rastikerdar/vazirmatn
+
+This project includes Vazirmatn in memory of its creator, Saber Rastikerdar.

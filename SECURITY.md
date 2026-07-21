@@ -1,21 +1,20 @@
-# Security Policy
+# سیاست امنیتی
 
-## Supported versions
+## نسخه‌های پشتیبانی‌شده
 
-Security fixes are provided for the latest released version.
+اصلاحات امنیتی فقط برای آخرین نسخه‌ی منتشرشده ارائه می‌شود.
 
-## Reporting a vulnerability
+## گزارش آسیب‌پذیری
 
-Please do not open a public issue for a security vulnerability. Report it privately through GitHub's **Security advisories → Report a vulnerability** section for this repository.
+برای آسیب‌پذیری امنیتی issue عمومی باز نکنید. آن را به‌صورت خصوصی از مسیر **Security advisories → Report a vulnerability** در همین مخزن گزارش کنید.
 
-Include the affected version, reproduction steps, expected impact and any proposed mitigation. Reports will be acknowledged as soon as reasonably possible.
+در گزارش، نسخه‌ی متاثر، مراحل بازتولید، اثر مورد انتظار و هر راهکار پیشنهادی را ذکر کنید. گزارش در اولین زمان منطقی بررسی و تایید دریافت می‌شود.
 
-## Security design
+## طراحی امنیتی
 
-This extension:
-
-- requests only the `storage` permission;
-- runs only on official ChatGPT domains listed in `manifest.json`;
-- contains no remote code, analytics, tracking, network requests or third-party runtime dependencies;
-- does not read or transmit conversation content outside the active page;
-- stores only the enabled/disabled preference locally.
+این افزونه:
+- فقط مجوز `storage` را درخواست می‌کند؛
+- فقط روی دامنه‌های رسمی ChatGPT که در `manifest.json` آمده اجرا می‌شود؛
+- هیچ کد راه‌دور، ابزار تحلیل، رهگیری، درخواست شبکه یا وابستگی زمان‌اجرای شخص ثالث ندارد؛
+- محتوای گفتگو را بیرون از صفحه‌ی فعال نمی‌خواند و ارسال نمی‌کند؛
+- فقط وضعیت روشن یا خاموش بودن افزونه را به‌صورت محلی ذخیره می‌کند.

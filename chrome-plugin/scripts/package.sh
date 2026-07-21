@@ -11,7 +11,7 @@ mkdir -p "$DIST"
 
 cd "$ROOT"
 zip -q -r "$DIST/$NAME" \
-  manifest.json content.js styles.css popup.html popup.js icons \
+  manifest.json content.js styles.css popup.html popup.js icons fonts \
   -x '*.DS_Store'
 
 printf 'Created %s\n' "$DIST/$NAME"
