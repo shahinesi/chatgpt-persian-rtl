@@ -2,6 +2,10 @@
 
 این مسیر برای ChatGPT Desktop روی macOS است.
 
+<p align="center">
+  <img src="../../docs/diagrams/desktop-patch-flow.svg" alt="جریان patch کردن ChatGPT Desktop روی macOS" width="100%">
+</p>
+
 ## نصب
 
 ```bash
@@ -17,6 +21,10 @@ bash macos/install.sh /Applications/ChatGPT.app
 ```
 
 ## بازگردانی
+
+<p align="center">
+  <img src="../../docs/diagrams/restore-safety.svg" alt="بازگردانی امن نسخه پشتیبان در macOS" width="100%">
+</p>
 
 ```bash
 cd desktop

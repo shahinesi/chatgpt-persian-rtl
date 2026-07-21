@@ -2,6 +2,10 @@
 
 این مسیر برای ChatGPT Desktop روی Windows است.
 
+<p align="center">
+  <img src="../../docs/diagrams/desktop-patch-flow.svg" alt="جریان patch کردن ChatGPT Desktop روی Windows" width="100%">
+</p>
+
 ## نصب
 
 ```powershell
@@ -17,6 +21,10 @@ powershell -ExecutionPolicy Bypass -File .\windows\install.ps1 "$env:LOCALAPPDAT
 ```
 
 ## بازگردانی
+
+<p align="center">
+  <img src="../../docs/diagrams/restore-safety.svg" alt="بازگردانی امن نسخه پشتیبان در Windows" width="100%">
+</p>
 
 ```powershell
 cd desktop

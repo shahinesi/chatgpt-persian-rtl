@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="920" viewBox="0 0 1600 920" role="img" aria-labelledby="title desc">
+  <title id="title">Project Map</title>
+  <desc id="desc">Hand drawn architecture map for Chrome plugin, macOS patcher, and Windows patcher.</desc>
+  <style>
+    .hand { font-family: "Comic Sans MS", "Trebuchet MS", cursive, sans-serif; }
+    .box { fill: #eef2f6; stroke: #202124; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .green { fill: #d9fbe1; stroke: #2ea44f; }
+    .blue { fill: #d9ecff; stroke: #1976d2; }
+    .purple { fill: #eadcff; stroke: #6842d9; }
+    .orange { fill: #fff1cf; stroke: #d9822b; }
+    .arrow { fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+
+  <rect width="1600" height="920" fill="#fff"/>
+  <text x="800" y="76" class="hand" text-anchor="middle" font-size="58" font-weight="700" fill="#202124">One Project, Three Targets</text>
+
+  <rect x="120" y="150" width="360" height="100" rx="18" class="box green"/>
+  <text x="300" y="211" class="hand" text-anchor="middle" font-size="36" fill="#2ea44f">Chrome Web</text>
+  <path d="M300 255 L300 350" class="arrow" stroke="#2ea44f"/>
+  <path d="M276 320 L300 355 L324 320" class="arrow" stroke="#2ea44f"/>
+  <rect x="72" y="370" width="460" height="210" rx="28" class="box"/>
+  <text x="302" y="430" class="hand" text-anchor="middle" font-size="31" fill="#202124">Manifest V3 Extension</text>
+  <text x="302" y="486" class="hand" text-anchor="middle" font-size="25" fill="#59636e">content.js + styles.css</text>
+  <text x="302" y="535" class="hand" text-anchor="middle" font-size="25" fill="#59636e">messages + composer only</text>
+
+  <rect x="620" y="150" width="360" height="100" rx="18" class="box purple"/>
+  <text x="800" y="211" class="hand" text-anchor="middle" font-size="36" fill="#6842d9">macOS Desktop</text>
+  <path d="M800 255 L800 350" class="arrow" stroke="#6842d9"/>
+  <path d="M776 320 L800 355 L824 320" class="arrow" stroke="#6842d9"/>
+  <rect x="572" y="370" width="460" height="210" rx="28" class="box"/>
+  <text x="802" y="430" class="hand" text-anchor="middle" font-size="31" fill="#202124">app.asar Patcher</text>
+  <text x="802" y="486" class="hand" text-anchor="middle" font-size="25" fill="#59636e">backup + inject + repack</text>
+  <text x="802" y="535" class="hand" text-anchor="middle" font-size="25" fill="#59636e">Info.plist hash update</text>
+
+  <rect x="1120" y="150" width="360" height="100" rx="18" class="box orange"/>
+  <text x="1300" y="211" class="hand" text-anchor="middle" font-size="36" fill="#d9822b">Windows Desktop</text>
+  <path d="M1300 255 L1300 350" class="arrow" stroke="#d9822b"/>
+  <path d="M1276 320 L1300 355 L1324 320" class="arrow" stroke="#d9822b"/>
+  <rect x="1072" y="370" width="460" height="210" rx="28" class="box"/>
+  <text x="1302" y="430" class="hand" text-anchor="middle" font-size="31" fill="#202124">app.asar Patcher</text>
+  <text x="1302" y="486" class="hand" text-anchor="middle" font-size="25" fill="#59636e">backup + inject + repack</text>
+  <text x="1302" y="535" class="hand" text-anchor="middle" font-size="25" fill="#59636e">PowerShell wrapper</text>
+
+  <path d="M302 600 C420 675 590 690 700 714" class="arrow" stroke="#2ea44f"/>
+  <path d="M802 600 C802 650 802 680 802 710" class="arrow" stroke="#6842d9"/>
+  <path d="M1302 600 C1180 675 1010 690 904 714" class="arrow" stroke="#d9822b"/>
+  <rect x="475" y="730" width="650" height="115" rx="26" class="box blue"/>
+  <text x="800" y="780" class="hand" text-anchor="middle" font-size="34" fill="#1976d2">Shared RTL Rules + Vazirmatn</text>
+  <text x="800" y="825" class="hand" text-anchor="middle" font-size="24" fill="#59636e">same reading behavior across targets</text>
+</svg>

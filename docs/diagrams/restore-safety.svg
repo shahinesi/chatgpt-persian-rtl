@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="760" viewBox="0 0 1500 760" role="img" aria-labelledby="title desc">
+  <title id="title">Restore Safety</title>
+  <desc id="desc">Hand drawn restore safety flow showing backup rollback for desktop patching.</desc>
+  <style>
+    .hand { font-family: "Comic Sans MS", "Trebuchet MS", cursive, sans-serif; }
+    .box { fill: #eef2f6; stroke: #202124; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .green { fill: #d9fbe1; stroke: #2ea44f; }
+    .red { fill: #ffd6d8; stroke: #e53935; }
+    .blue { fill: #d9ecff; stroke: #1976d2; }
+    .arrow { fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect width="1500" height="760" fill="#fff"/>
+  <text x="750" y="72" class="hand" text-anchor="middle" font-size="56" font-weight="700" fill="#202124">Restore is Built In</text>
+
+  <rect x="110" y="150" width="430" height="145" rx="24" class="box red"/>
+  <text x="325" y="205" class="hand" text-anchor="middle" font-size="32" fill="#e53935">Patch failed?</text>
+  <text x="325" y="252" class="hand" text-anchor="middle" font-size="25" fill="#59636e">or user wants original app</text>
+
+  <path d="M555 220 L705 220" class="arrow" stroke="#1976d2"/>
+  <path d="M675 197 L710 220 L675 243" class="arrow" stroke="#1976d2"/>
+  <rect x="735" y="150" width="300" height="145" rx="24" class="box blue"/>
+  <text x="885" y="205" class="hand" text-anchor="middle" font-size="32" fill="#1976d2">Restore</text>
+  <text x="885" y="252" class="hand" text-anchor="middle" font-size="25" fill="#59636e">copy backup back</text>
+
+  <path d="M1050 220 L1195 220" class="arrow" stroke="#2ea44f"/>
+  <path d="M1165 197 L1200 220 L1165 243" class="arrow" stroke="#2ea44f"/>
+  <rect x="1225" y="150" width="190" height="145" rx="24" class="box green"/>
+  <text x="1320" y="205" class="hand" text-anchor="middle" font-size="32" fill="#2ea44f">Clean</text>
+  <text x="1320" y="252" class="hand" text-anchor="middle" font-size="25" fill="#59636e">original asar</text>
+
+  <rect x="170" y="420" width="1160" height="120" rx="28" class="box"/>
+  <text x="750" y="472" class="hand" text-anchor="middle" font-size="34" fill="#202124">Backup file stays beside app.asar</text>
+  <text x="750" y="518" class="hand" text-anchor="middle" font-size="24" fill="#59636e">app.asar.chatgpt-persian-rtl.bak</text>
+
+  <rect x="375" y="625" width="750" height="66" rx="16" class="box green"/>
+  <text x="750" y="668" class="hand" text-anchor="middle" font-size="31" font-weight="700" fill="#2ea44f">Patch is reversible by design</text>
+</svg>

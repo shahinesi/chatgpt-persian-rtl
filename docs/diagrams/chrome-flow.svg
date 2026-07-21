@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="780" viewBox="0 0 1500 780" role="img" aria-labelledby="title desc">
+  <title id="title">Chrome Extension Flow</title>
+  <desc id="desc">Hand drawn flow showing scoped message detection in the Chrome extension.</desc>
+  <style>
+    .hand { font-family: "Comic Sans MS", "Trebuchet MS", cursive, sans-serif; }
+    .box { fill: #eef2f6; stroke: #202124; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .green { fill: #d9fbe1; stroke: #2ea44f; }
+    .red { fill: #ffd6d8; stroke: #e53935; }
+    .blue { fill: #d9ecff; stroke: #1976d2; }
+    .arrow { fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect width="1500" height="780" fill="#fff"/>
+  <text x="750" y="70" class="hand" text-anchor="middle" font-size="56" font-weight="700" fill="#202124">Chrome Plugin Flow</text>
+
+  <rect x="90" y="160" width="300" height="90" rx="16" class="box"/>
+  <text x="240" y="216" class="hand" text-anchor="middle" font-size="31" fill="#202124">ChatGPT DOM</text>
+  <path d="M395 205 L520 205" class="arrow" stroke="#2ea44f"/>
+  <path d="M490 182 L525 205 L490 228" class="arrow" stroke="#2ea44f"/>
+
+  <rect x="540" y="140" width="385" height="130" rx="20" class="box green"/>
+  <text x="733" y="190" class="hand" text-anchor="middle" font-size="30" fill="#2ea44f">Semantic Selectors</text>
+  <text x="733" y="235" class="hand" text-anchor="middle" font-size="24" fill="#59636e">messages + composer</text>
+
+  <path d="M930 205 L1055 205" class="arrow" stroke="#2ea44f"/>
+  <path d="M1025 182 L1060 205 L1025 228" class="arrow" stroke="#2ea44f"/>
+  <rect x="1080" y="140" width="330" height="130" rx="20" class="box blue"/>
+  <text x="1245" y="190" class="hand" text-anchor="middle" font-size="30" fill="#1976d2">Direction Engine</text>
+  <text x="1245" y="235" class="hand" text-anchor="middle" font-size="24" fill="#59636e">bullets + mixed text</text>
+
+  <path d="M1245 278 L1245 380" class="arrow" stroke="#1976d2"/>
+  <path d="M1222 350 L1245 385 L1268 350" class="arrow" stroke="#1976d2"/>
+  <rect x="1010" y="400" width="470" height="170" rx="26" class="box green"/>
+  <text x="1245" y="462" class="hand" text-anchor="middle" font-size="32" fill="#2ea44f">Managed Attributes</text>
+  <text x="1245" y="510" class="hand" text-anchor="middle" font-size="24" fill="#59636e">data-cgpt-rtl-dir</text>
+
+  <rect x="85" y="410" width="560" height="165" rx="28" class="box red"/>
+  <text x="365" y="468" class="hand" text-anchor="middle" font-size="31" fill="#e53935">Ignored on purpose</text>
+  <text x="365" y="516" class="hand" text-anchor="middle" font-size="25" fill="#59636e">sidebar · header · menus · buttons</text>
+
+  <path d="M690 475 C770 420 900 420 985 475" class="arrow" stroke="#c8ced4" stroke-dasharray="14 14"/>
+  <text x="820" y="385" class="hand" text-anchor="middle" font-size="26" fill="#7a858f">no full UI takeover</text>
+
+  <rect x="305" y="625" width="890" height="105" rx="18" class="box blue"/>
+  <text x="750" y="670" class="hand" text-anchor="middle" font-size="29" font-weight="700" fill="#1976d2">Readable Persian · English stays LTR</text>
+  <text x="750" y="710" class="hand" text-anchor="middle" font-size="29" font-weight="700" fill="#1976d2">code stays LTR</text>
+</svg>

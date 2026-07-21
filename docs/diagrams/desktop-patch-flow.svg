@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="840" viewBox="0 0 1600 840" role="img" aria-labelledby="title desc">
+  <title id="title">Desktop Patch Flow</title>
+  <desc id="desc">Hand drawn desktop patch flow for ChatGPT app.asar on macOS and Windows.</desc>
+  <style>
+    .hand { font-family: "Comic Sans MS", "Trebuchet MS", cursive, sans-serif; }
+    .box { fill: #eef2f6; stroke: #202124; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .green { fill: #d9fbe1; stroke: #2ea44f; }
+    .purple { fill: #eadcff; stroke: #6842d9; }
+    .orange { fill: #fff1cf; stroke: #d9822b; }
+    .blue { fill: #d9ecff; stroke: #1976d2; }
+    .arrow { fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <rect width="1600" height="840" fill="#fff"/>
+  <text x="800" y="70" class="hand" text-anchor="middle" font-size="56" font-weight="700" fill="#202124">Desktop app.asar Patch Flow</text>
+
+  <rect x="85" y="150" width="285" height="110" rx="18" class="box"/>
+  <text x="228" y="195" class="hand" text-anchor="middle" font-size="28" fill="#202124">Find ChatGPT</text>
+  <text x="228" y="236" class="hand" text-anchor="middle" font-size="22" fill="#59636e">macOS / Windows</text>
+
+  <path d="M380 205 L485 205" class="arrow" stroke="#6842d9"/>
+  <path d="M455 182 L490 205 L455 228" class="arrow" stroke="#6842d9"/>
+  <rect x="505" y="150" width="285" height="110" rx="18" class="box purple"/>
+  <text x="648" y="195" class="hand" text-anchor="middle" font-size="28" fill="#6842d9">Backup</text>
+  <text x="648" y="236" class="hand" text-anchor="middle" font-size="22" fill="#59636e">app.asar.bak</text>
+
+  <path d="M800 205 L905 205" class="arrow" stroke="#6842d9"/>
+  <path d="M875 182 L910 205 L875 228" class="arrow" stroke="#6842d9"/>
+  <rect x="925" y="150" width="285" height="110" rx="18" class="box orange"/>
+  <text x="1068" y="195" class="hand" text-anchor="middle" font-size="28" fill="#d9822b">Extract</text>
+  <text x="1068" y="236" class="hand" text-anchor="middle" font-size="22" fill="#59636e">@electron/asar</text>
+
+  <path d="M1220 205 L1325 205" class="arrow" stroke="#2ea44f"/>
+  <path d="M1295 182 L1330 205 L1295 228" class="arrow" stroke="#2ea44f"/>
+  <rect x="1345" y="150" width="190" height="110" rx="18" class="box green"/>
+  <text x="1440" y="195" class="hand" text-anchor="middle" font-size="28" fill="#2ea44f">Inject</text>
+  <text x="1440" y="236" class="hand" text-anchor="middle" font-size="22" fill="#59636e">RTL + font</text>
+
+  <path d="M1440 275 C1440 340 1280 375 1180 410" class="arrow" stroke="#2ea44f"/>
+  <path d="M1214 413 L1174 412 L1201 382" class="arrow" stroke="#2ea44f"/>
+  <rect x="900" y="425" width="390" height="125" rx="22" class="box blue"/>
+  <text x="1095" y="476" class="hand" text-anchor="middle" font-size="31" fill="#1976d2">Repack app.asar</text>
+  <text x="1095" y="520" class="hand" text-anchor="middle" font-size="23" fill="#59636e">native modules preserved</text>
+
+  <path d="M890 490 L780 490" class="arrow" stroke="#1976d2"/>
+  <path d="M810 467 L775 490 L810 513" class="arrow" stroke="#1976d2"/>
+  <rect x="435" y="425" width="310" height="125" rx="22" class="box purple"/>
+  <text x="590" y="476" class="hand" text-anchor="middle" font-size="31" fill="#6842d9">macOS Fix</text>
+  <text x="590" y="520" class="hand" text-anchor="middle" font-size="23" fill="#59636e">Info.plist + xattr</text>
+
+  <path d="M590 570 C640 635 745 650 785 670" class="arrow" stroke="#2ea44f"/>
+  <path d="M1095 570 C1045 635 885 650 815 670" class="arrow" stroke="#2ea44f"/>
+  <rect x="430" y="680" width="740" height="76" rx="18" class="box green"/>
+  <text x="800" y="729" class="hand" text-anchor="middle" font-size="34" font-weight="700" fill="#2ea44f">Restart ChatGPT · Persian reads correctly</text>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1020" viewBox="0 0 1600 1020" role="img" aria-labelledby="title desc">
+  <title id="title">The RTL Problem</title>
+  <desc id="desc">A hand drawn comparison of broken Persian text without patch and scoped RTL text with ChatGPT Persian RTL.</desc>
+  <style>
+    .hand { font-family: "Comic Sans MS", "Trebuchet MS", cursive, sans-serif; }
+    .ink { stroke: #202124; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .soft { fill: #e8ecef; stroke: #202124; stroke-width: 5; }
+    .red { stroke: #e53935; fill: #ffcdd2; }
+    .green { stroke: #2ea44f; fill: #c8f7d1; }
+    .blue { stroke: #1976d2; fill: #bbdefb; }
+    .muted { stroke: #a8b0b7; fill: #f4f6f8; }
+  </style>
+
+  <rect width="1600" height="1020" fill="#fff"/>
+  <text x="800" y="76" class="hand" text-anchor="middle" font-size="58" font-weight="700" fill="#202124">The RTL Problem</text>
+  <path d="M800 150 C805 300 800 520 805 850" stroke="#c8ced4" stroke-width="3" stroke-dasharray="14 18" fill="none"/>
+
+  <text x="300" y="190" class="hand" text-anchor="middle" font-size="42" font-weight="700" fill="#e53935">Without Patch</text>
+  <rect x="140" y="238" width="360" height="74" rx="14" class="soft"/>
+  <text x="320" y="286" class="hand" text-anchor="middle" font-size="32" fill="#202124">ChatGPT</text>
+  <text x="318" y="358" class="hand" text-anchor="middle" font-size="26" fill="#e53935">browser/default bidi</text>
+  <path d="M320 374 L320 448" stroke="#e53935" stroke-width="6" stroke-linecap="round"/>
+  <path d="M295 420 L320 455 L344 420" stroke="#e53935" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <rect x="78" y="492" width="560" height="230" rx="30" class="muted" stroke-width="5"/>
+  <g class="hand" font-size="28" fill="#202124">
+    <text x="132" y="558">- install extension سپس فارسی</text>
+    <text x="132" y="612">1. ChatGPT متن فارسی</text>
+    <text x="132" y="666">API و بولت ها بهم میریزد</text>
+  </g>
+  <text x="358" y="770" class="hand" text-anchor="middle" font-size="25" fill="#7a858f">Bullets + English first word</text>
+  <rect x="168" y="815" width="375" height="70" rx="14" class="red" stroke-width="5"/>
+  <text x="356" y="861" class="hand" text-anchor="middle" font-size="33" font-weight="700" fill="#e53935">broken direction</text>
+
+  <text x="1245" y="190" class="hand" text-anchor="middle" font-size="42" font-weight="700" fill="#2ea44f">With RTL Kit</text>
+  <rect x="1078" y="238" width="360" height="74" rx="14" class="soft"/>
+  <text x="1258" y="286" class="hand" text-anchor="middle" font-size="32" fill="#202124">ChatGPT</text>
+  <text x="1258" y="358" class="hand" text-anchor="middle" font-size="26" fill="#2ea44f">scoped selector pass</text>
+  <path d="M1258 374 L1258 416" stroke="#2ea44f" stroke-width="6" stroke-linecap="round"/>
+  <path d="M1234 389 L1258 423 L1282 389" stroke="#2ea44f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <path d="M1194 502 L1258 452 L1322 502 L1258 552 Z" fill="#dec9ff" stroke="#6842d9" stroke-width="6" stroke-linejoin="round"/>
+  <text x="1258" y="510" class="hand" text-anchor="middle" font-size="28" fill="#6842d9">RTL</text>
+
+  <rect x="970" y="585" width="565" height="180" rx="30" class="green" stroke-width="6"/>
+  <g class="hand" font-size="27" fill="#202124" direction="rtl" unicode-bidi="bidi-override">
+    <text x="1252" y="650" text-anchor="middle">بولت فارسی درست راست‌چین می‌شود</text>
+    <text x="1252" y="704" text-anchor="middle">شروع انگلیسی جمله را خراب نمی‌کند</text>
+  </g>
+  <text x="1252" y="804" class="hand" text-anchor="middle" font-size="25" fill="#2ea44f">Messages + composer only</text>
+  <rect x="1060" y="842" width="390" height="70" rx="14" class="green" stroke-width="5"/>
+  <text x="1255" y="888" class="hand" text-anchor="middle" font-size="33" font-weight="700" fill="#2ea44f">clean RTL output</text>
+
+  <rect x="330" y="936" width="940" height="48" rx="12" class="blue" stroke-width="5"/>
+  <text x="800" y="968" class="hand" text-anchor="middle" font-size="24" font-weight="700" fill="#1976d2">Scoped RTL · no full UI takeover · code stays LTR</text>
+</svg>

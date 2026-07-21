@@ -2,6 +2,10 @@
 
 این پوشه مسیر دسکتاپ پروژه است و به دو بخش جدا تقسیم شده:
 
+<p align="center">
+  <img src="../docs/diagrams/desktop-patch-flow.svg" alt="جریان patch کردن app.asar در نسخه دسکتاپ ChatGPT" width="100%">
+</p>
+
 | مسیر | کاربرد |
 |---|---|
 | `macos/` | نصب و بازگردانی ChatGPT Desktop روی macOS |
@@ -34,6 +38,10 @@ npm run patch:windows
 ```
 
 ## بازگردانی
+
+<p align="center">
+  <img src="../docs/diagrams/restore-safety.svg" alt="جریان بازگردانی امن با نسخه پشتیبان" width="100%">
+</p>
 
 ```bash
 cd desktop
