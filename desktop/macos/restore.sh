@@ -13,4 +13,19 @@ if [ ! -d node_modules ]; then
   npm install
 fi
 
-node bin/chatgpt-rtl-patcher.mjs --platform=macos --restore "$@"
+LOG_FILE="$(mktemp)"
+if node bin/chatgpt-rtl-patcher.mjs --platform=macos --restore "$@" 2>"$LOG_FILE"; then
+  rm -f "$LOG_FILE"
+  exit 0
+fi
+
+cat "$LOG_FILE" >&2
+if grep -Eq 'EPERM|Operation not permitted|اجازه نوشتن' "$LOG_FILE"; then
+  printf '\nبرای بازگردانی برنامه داخل /Applications دسترسی administrator لازم است. اجرای دوباره با sudo...\n' >&2
+  rm -f "$LOG_FILE"
+  sudo node bin/chatgpt-rtl-patcher.mjs --platform=macos --restore "$@"
+  exit $?
+fi
+
+rm -f "$LOG_FILE"
+exit 1

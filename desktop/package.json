@@ -15,7 +15,7 @@
     "restore:macos": "node bin/chatgpt-rtl-patcher.mjs --platform=macos --restore",
     "patch:windows": "node bin/chatgpt-rtl-patcher.mjs --platform=windows",
     "restore:windows": "node bin/chatgpt-rtl-patcher.mjs --platform=windows --restore",
-    "test": "node --check bin/chatgpt-rtl-patcher.mjs"
+    "test": "node --check bin/chatgpt-rtl-patcher.mjs && node bin/chatgpt-rtl-patcher.test.mjs"
   },
   "dependencies": {
     "@electron/asar": "^3.2.18",

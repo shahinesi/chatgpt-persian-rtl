@@ -5,5 +5,8 @@
     "test": "npm --prefix chrome-plugin test && npm --prefix desktop test",
     "test:desktop": "npm --prefix desktop test",
     "build": "npm --prefix chrome-plugin run build"
+  },
+  "devDependencies": {
+    "@electron/asar": "^4.2.0"
   }
 }

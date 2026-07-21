@@ -1,4 +1,9 @@
 /* ChatGPT Persian RTL desktop patch */
+
+/*
+ * @font-face declarations are unlayered — they register the font and have
+ * no specificity conflict with Tailwind layers.
+ */
 @font-face {
   font-family: "Vazirmatn";
   src: url("__VAZIRMATN_REGULAR__") format("truetype");
@@ -15,36 +20,132 @@
   font-display: swap;
 }
 
-:where(
-  [data-message-author-role="user"],
-  [data-message-author-role="assistant"],
-  #prompt-textarea,
-  form [role="textbox"][contenteditable="true"],
-  form textarea
-) {
+/*
+ * Override the Tailwind --font-sans custom property on message prose
+ * containers and the composer.  Tailwind's own rules use
+ * var(--font-sans) for font-family, so redefining the variable at
+ * this level propagates Vazirmatn to every descendant that references
+ * var(--font-sans) (e.g. .ProseMirror p, .ProseMirror span,
+ * .ProseMirror p *) without fighting specificity or cascade layers.
+ *
+ * CSS custom properties inherit, so children of these containers
+ * automatically receive the Vazirmatn stack.
+ *
+ * This override is unlayered + !important.  Tailwind's @layer theme
+ * defines --font-sans without !important, so our unlayered !important
+ * always wins over the layered normal declaration.
+ */
+[data-message-author-role="user"],
+[data-message-author-role="assistant"] {
+  --font-sans-default: "Vazirmatn", "Tahoma", "Segoe UI", system-ui, sans-serif !important;
+  --font-sans: "Vazirmatn", "Tahoma", "Segoe UI", system-ui, sans-serif !important;
+}
+
+/*
+ * Direct font-family fallback for the container element itself and
+ * the composer.  Covers elements that set font-family directly
+ * (not via var(--font-sans)).  Unlayered !important.
+ */
+[data-message-author-role="user"],
+[data-message-author-role="assistant"],
+[data-cgpt-rtl-managed],
+#prompt-textarea,
+form [role="textbox"][contenteditable="true"],
+form textarea {
   font-family: "Vazirmatn", "Tahoma", "Segoe UI", system-ui, sans-serif !important;
   unicode-bidi: plaintext !important;
-  text-align: start !important;
 }
 
-:where([data-message-author-role="user"], [data-message-author-role="assistant"]) :where(
-  pre,
-  code,
-  kbd,
-  samp,
-  table,
-  math,
-  .katex,
-  .MathJax,
-  [data-math],
-  [data-language]
-) {
-  direction: ltr !important;
-  text-align: left !important;
-  unicode-bidi: isolate !important;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
-}
+/*
+ * Direction, block, and technical-content rules live inside
+ * @layer chatgpt-rtl.  The patcher modifies index.html to declare
+ * this layer first in the layer order:
+ *   @layer chatgpt-rtl, theme, base, components, utilities;
+ *
+ * For !important declarations the cascade-layer order is reversed,
+ * so the earliest-declared layer has the highest priority.
+ * Placing chatgpt-rtl first ensures our direction !important rules
+ * beat any layered !important from Tailwind's utilities.
+ */
+@layer chatgpt-rtl {
 
-:where([data-message-author-role="user"], [data-message-author-role="assistant"]) :where(code, kbd, samp, a[href], bdi) {
-  unicode-bidi: isolate !important;
+  [data-cgpt-rtl-dir="rtl"] {
+    direction: rtl !important;
+    text-align: right !important;
+    unicode-bidi: plaintext !important;
+  }
+
+  [data-cgpt-rtl-dir="ltr"] {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: plaintext !important;
+  }
+
+  [data-cgpt-rtl-managed="block"] {
+    max-width: 100%;
+  }
+
+  [data-cgpt-rtl-managed="block"] ul,
+  [data-cgpt-rtl-managed="block"] ol {
+    direction: inherit !important;
+    text-align: inherit !important;
+    list-style-position: outside !important;
+  }
+
+  [data-cgpt-rtl-managed="block"] li {
+    direction: inherit !important;
+    text-align: inherit !important;
+    unicode-bidi: plaintext !important;
+  }
+
+  /*
+   * Preserve LTR and monospace font for code, math, and technical
+   * content only.  Removed [class*="code"] — it was too broad and
+   * matched unrelated UI containers.
+   *
+   * table is intentionally excluded: Persian content tables may
+   * legitimately need RTL layout.
+   */
+  [data-message-author-role="user"] pre,
+  [data-message-author-role="user"] code,
+  [data-message-author-role="user"] kbd,
+  [data-message-author-role="user"] samp,
+  [data-message-author-role="user"] math,
+  [data-message-author-role="user"] .katex,
+  [data-message-author-role="user"] .MathJax,
+  [data-message-author-role="user"] [data-math],
+  [data-message-author-role="user"] [data-language],
+  [data-message-author-role="assistant"] pre,
+  [data-message-author-role="assistant"] code,
+  [data-message-author-role="assistant"] kbd,
+  [data-message-author-role="assistant"] samp,
+  [data-message-author-role="assistant"] math,
+  [data-message-author-role="assistant"] .katex,
+  [data-message-author-role="assistant"] .MathJax,
+  [data-message-author-role="assistant"] [data-math],
+  [data-message-author-role="assistant"] [data-language] {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: isolate !important;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
+  }
+
+  /*
+   * Isolate inline code, keyboard shortcuts, samples, links, and
+   * bidirectional isolates so they don't affect surrounding text
+   * direction.
+   */
+  [data-message-author-role="user"] code,
+  [data-message-author-role="user"] kbd,
+  [data-message-author-role="user"] samp,
+  [data-message-author-role="user"] a[href],
+  [data-message-author-role="user"] bdi,
+  [data-message-author-role="assistant"] code,
+  [data-message-author-role="assistant"] kbd,
+  [data-message-author-role="assistant"] samp,
+  [data-message-author-role="assistant"] a[href],
+  [data-message-author-role="assistant"] bdi {
+    unicode-bidi: isolate !important;
+  }
+
 }
