@@ -15,6 +15,11 @@
     "restore:macos": "node bin/chatgpt-rtl-patcher.mjs --platform=macos --restore",
     "patch:windows": "node bin/chatgpt-rtl-patcher.mjs --platform=windows",
     "restore:windows": "node bin/chatgpt-rtl-patcher.mjs --platform=windows --restore",
+    "rtl:launch": "node bin/codex-rtl-launcher.mjs",
+    "rtl:canary": "node bin/codex-rtl-launcher.mjs --canary",
+    "rtl:stop": "node bin/codex-rtl-stop.mjs",
+    "classic:probe": "swift bin/codex-classic-probe.swift",
+    "classic:rtl": "swift bin/codex-classic-rtl.swift --proof --send",
     "test": "node --check bin/chatgpt-rtl-patcher.mjs && node bin/chatgpt-rtl-patcher.test.mjs"
   },
   "dependencies": {

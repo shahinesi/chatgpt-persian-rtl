@@ -43,5 +43,6 @@ bash macos/restore.sh
 - فایل `Contents/Resources/app.asar` patch می‌شود.
 - نسخه‌ی پشتیبان با پسوند `.chatgpt-persian-rtl.bak` کنار فایل اصلی ساخته می‌شود.
 - runtime مستقل RTL به preload و assetهای مکالمه تزریق می‌شود تا فونت Vazirmatn و جهت متن واقعا روی DOM پیام‌ها، بولت‌ها، نقل‌قول‌ها و composer اعمال شود.
+- منبع رسمی فونت Vazirmatn: [rastikerdar.github.io/vazirmatn/fa](https://rastikerdar.github.io/vazirmatn/fa)
 - بعد از patch یا restore، hash داخل `Info.plist` به‌روزرسانی می‌شود.
 - bundle دوباره sign و با `codesign --verify --deep --strict` اعتبارسنجی می‌شود؛ اگر این مرحله رد شود، patch نباید موفق اعلام شود.

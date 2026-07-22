@@ -10,7 +10,7 @@
 
   <br>
 
-  <strong>npm version</strong> · <strong>License: MIT</strong> · <strong>PRs Welcome</strong> · <strong>GitHub stars</strong>
+  <strong>نسخه npm</strong> · <strong>مجوز: MIT</strong> · <strong>پیشنهاد تغییرات پذیرفته می‌شود</strong> · <strong>ستاره‌های GitHub</strong>
 
   <br><br>
 

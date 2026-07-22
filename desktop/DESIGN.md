@@ -1,232 +1,125 @@
-# ChatGPT Desktop RTL Patching Design
+# ChatGPT Desktop RTL Runtime Design
 
 ## Overview
-Inject Persian RTL support into ChatGPT Desktop's Electron asar archive without source code access.
+Apply Persian RTL support to the live ChatGPT / Codex Electron runtime without modifying the official app bundle.
 
 ## Architecture
 ```mermaid
 flowchart TD
-    A[app.asar] -->|extract| B[tempDir]
-    B -->|inject CSS/JS| C[tempDir]
-    C -->|repack| D[patched.asar]
-    D -->|verify| E[verifier]
+    A[Launch real app] -->|dynamic loopback CDP| B[Browser target]
+    B -->|discover and auto-attach| C[page / webview / iframe targets]
+    C -->|inject runtime + stylesheet| D[persistent live RTL]
+    D -->|font load/check + canvas verify| E[validation report]
 ```
 
 ## Components
 
-### 1. Patcher (`chatgpt-rtl-patcher.mjs`)
-**Entry point**: `node chatgpt-rtl-patcher.mjs [--platform=macos|windows] [--restore] [--list] [path]`
+### 1. Launcher
+**Entry point**: `npm run rtl:launch`
 
-**Modes**:
-- **Asar mode**: `extract → inject → repack` (default)
-- **Extracted dir mode**: Direct file injection (when `webview/index.html` exists)
-- **Restore mode**: Rollback to backup
-- **List mode**: Show CSS/JS targets
+Responsibilities:
+- Quit existing `com.openai.codex` processes
+- Launch `/Applications/ChatGPT.app` on a dynamic loopback port
+- Keep the user’s normal profile and state
+- Connect to the browser websocket endpoint
+- Attach to live targets with `Target.setDiscoverTargets` and `Target.setAutoAttach`
 
-**Injection logic**:
-```javascript
-// CSS injection
-function injectCss(file) {
-  if (content.includes(marker)) return;
-  writeFileSync(file, `${content}\n\n${patchCss()}\n`);
-}
+### 2. Runtime injector
+**Primary file**: `desktop/shared/rtl-runtime.js`
 
-// JS injection
-function injectRuntime(file) {
-  if (content.includes(marker)) return;
-  const insertAt = sourceMapMatch?.index ?? content.length;
-  writeFileSync(file, content.slice(0, insertAt) + runtime + content.slice(insertAt));
-}
+Responsibilities:
+- Install a persistent runtime under a unique `window[PATCH_ID]`
+- Create and maintain `<style id="chatgpt-rtl-style">`
+- Reapply after navigation, reload, execution-context recreation, and target recreation
+- Restore the style node if it is removed
+- Keep bidi direction logic separate from font selection
 
-// Layer injection
-function injectLayerIntoIndexHtml(root) {
-  const indexPath = path.join(root, 'webview', 'index.html');
-  if (!existsSync(indexPath)) return false;
-  
-  const content = readFileSync(indexPath, 'utf8');
-  if (content.includes(LAYER_DECLARATION_PATCHED)) return false;
-  if (!LAYER_ORIGINAL_RE.test(content)) return false;
-  
-  writeFileSync(indexPath, content.replace(LAYER_ORIGINAL_RE, LAYER_DECLARATION_PATCHED));
-  return true;
-}
-```
+### 3. Stylesheet
+**Primary file**: `desktop/shared/rtl-patch.css`
 
-### 2. Verifier (`verify-patch.sh`)
-**Workflow**:
-1. Restore clean backup
-2. Apply patch
-3. Extract patched asar
-4. Run structural checks
+Responsibilities:
+- Define `@font-face` rules from real Vazirmatn font payloads
+- Apply Vazirmatn to natural-language surfaces only
+- Keep code, terminals, diffs, editors, icons, SVGs, and technical content monospace and LTR
+- Expose `--font-sans` and `--font-sans-default` on app roots where available
 
-**Checks**:
-```bash
-# Layer declaration
-if grep -q 'chatgpt-rtl, theme, base, components, utilities' "$INDEX_FILE"; then
-  check "index.html layer declaration" "pass"
-fi
+### 4. Font validation
+The launcher validates the repository-owned Vazirmatn package before injection.
 
-# [class*="code"] selector (comment-aware)
-if perl -0777 -pe 's{/\*.*?\*/}{}gs' "$cssfile" | grep -q '\[class\*="code"\]'; then
-  check "No [class*=\"code\"] selector" "found forbidden selector"
-fi
-```
+Variable-first flow:
+- Validate `desktop/shared/fonts/webfonts/Vazirmatn[wght].woff2`
+- Require WOFF2 signature, family name, normal style, and a `wght` axis that spans roughly `100..900`
+- Use a single variable `@font-face` when valid
 
-### 3. Runtime (`rtl-runtime.js`)
-**Features**:
-- IIFE wrapper
-- `window[PATCH_ID]` guard
-- `document.getElementById(STYLE_ID)` dedup
-- `document.head || document.documentElement` fallback
-- MutationObserver for streaming content
-- Direction detection (RTL/LTR)
+Static fallback:
+- If the variable file fails validation, use the real static WOFF2 files from `desktop/shared/fonts/webfonts/`
+- Each fallback face must match its exact weight
 
-**Template**:
-```javascript
-(() => {
-  if (typeof window === 'undefined' || typeof document === 'undefined') return;
-  if (window[PATCH_ID]) return;
-  window[PATCH_ID] = true;
-  
-  const css = `__CHATGPT_PERSIAN_RTL_CSS__`;
-  const style = document.getElementById(STYLE_ID) || 
-    Object.assign(document.head || document.documentElement, {
-      appendChild: (el) => document.head.appendChild(el)
-    }).appendChild(document.createElement('style'));
-  
-  style.id = STYLE_ID;
-  style.textContent = css;
-  
-  // ... MutationObserver for streaming content
-})();
-```
+Validation signals:
+- `document.fonts.ready`
+- `document.fonts.load()` and `document.fonts.check()` for representative weights
+- `FontFaceSet` entries
+- Canvas width comparison against fallback text rendering
 
-### 4. CSS (`rtl-patch.css`)
-**Structure**:
-```css
-/* Unlayered: font-face and font overrides */
-@font-face { font-family: "Vazirmatn"; src: url("__VAZIRMATN_REGULAR__") format("truetype"); }
-[data-message-author-role="user"] { --font-sans: "Vazirmatn" !important; }
+### 5. Verification
+The success criterion is the live application, not static tests.
 
-/* Layered: direction rules */
-@layer chatgpt-rtl {
-  [data-cgpt-rtl-dir="rtl"] { direction: rtl !important; }
-  [data-cgpt-rtl-dir="ltr"] { direction: ltr !important; }
-  [data-message-author-role="user"] pre { direction: ltr !important; }
-}
-```
+Expected visible result:
+- Composer uses Vazirmatn
+- Persian user and assistant text use Vazirmatn
+- English and mixed text remain readable
+- Code remains monospace and LTR
+- The persistent style survives reloads and target recreation
 
 ## Implementation Details
 
-### Target Discovery
+### Target discovery
+The launcher attaches to live DOM-capable targets and ignores stale or empty targets.
+
 ```javascript
-function isRuntimeCandidate(file, root) {
-  const relative = path.relative(root, file).replaceAll(path.sep, '/');
-  if (!relative.endsWith('.js')) return false;
-  if (relative.includes('/node_modules/')) return false;
-  if (relative.startsWith('.vite/build/')) return false;
-  
-  return (
-    /^webview\/assets\/(?:app-main|chatgpt-conversation-page|thread-user-message|composer-|local-conversation-thread|remote-conversation-page).*\.js$/u.test(relative) ||
-    /^webview\/assets\/app-initial.*chatgpt.*\.js$/u.test(relative)
-  );
+function shouldAttachTarget(targetInfo) {
+  return ['page', 'webview', 'iframe', 'worker', 'service_worker'].includes(targetInfo.type);
 }
 ```
 
-### Layer Injection
-**Before**:
-```html
-<style>
-  @layer theme, base, components, utilities;
-</style>
-```
+### Persistent stylesheet
+The runtime keeps one stylesheet alive and restores it when the active document changes.
 
-**After**:
-```html
-<style>
-  @layer chatgpt-rtl, theme, base, components, utilities;
-</style>
-```
-
-### Comment Stripping
-**Problem**:
-```css
-/*
- * Removed [class*="code"] — it was too broad
- */
-```
-
-**Solution**:
-```bash
-perl -0777 -pe 's{/\*.*?\*/}{}gs' file.css | grep -q '\[class\*="code"\]'
-```
-
-## Testing
-
-### Test Suite (`chatgpt-rtl-patcher.test.mjs`)
-**Categories**:
-1. **Runtime insertion**: Source map preservation, idempotency
-2. **CSS validation**: No broad selectors, proper layer placement
-3. **Target discovery**: Renderer vs non-renderer classification
-4. **Layer injection**: Success, idempotency, whitespace handling
-5. **Comment stripping**: False positive prevention
-6. **Asar round-trip**: Pack/unpack preservation
-
-**Example test**:
 ```javascript
-test('layer-order injection succeeds against clean index.html', async () => {
-  const fixtureDir = makeFixtureDir();
-  writeFileSync(
-    path.join(fixtureDir, 'webview', 'index.html'),
-    '<html><head><style>@layer theme, base, components, utilities;</style></head></html>'
-  );
-  
-  execFileSync(process.execPath, [patcherPath, fixtureDir]);
-  
-  const html = readFileSync(path.join(fixtureDir, 'webview', 'index.html'), 'utf8');
-  assert.ok(html.includes('chatgpt-rtl, theme, base, components, utilities'));
-});
+const style = document.getElementById(STYLE_ID) || document.createElement('style');
+style.id = STYLE_ID;
+style.textContent = css;
 ```
 
-## Deployment
+### Direction and font separation
+The bidi engine remains responsible for direction, alignment, and mixed-script behavior.
+The font layer only controls typeface selection and weight rendering.
 
-### macOS
-```bash
-# Install
-./install.sh
+## Testing and Validation
 
-# Verify
-./verify-patch.sh
+### What is still useful
+- Runtime unit checks for helper logic
+- Static doc and CSS sanity checks
+- Launcher bootstrap validation
 
-# Restore
-./restore.sh
-```
-
-### Windows
-```powershell
-# Install
-install.ps1
-
-# Verify
-verify-patch.ps1
-
-# Restore
-restore.ps1
-```
+### What matters for success
+- The real app opens
+- A non-empty target list is attached
+- The runtime stylesheet remains connected
+- Representative font weights load and render
+- Real composer and message surfaces show visible RTL with Vazirmatn
 
 ## Error Handling
 
 | Error | Detection | Recovery |
 |-------|-----------|----------|
-| No write permission | `verifyWritableTarget()` | Fail with instructions |
-| App running | `ensureTargetClosed()` | Kill processes, retry |
-| No backup | `existsSync(backupPath)` | Fail with instructions |
-| Extraction failed | `try/catch` | Rollback, fail |
-| No targets found | `changed === 0` | Rollback, fail |
+| No remote debugging endpoint | browser websocket timeout | Fail loudly and report the blocker |
+| No attached targets | empty `attachedTargets` | Fail loudly |
+| Font validation failed | `document.fonts` or canvas checks | Report the exact font blocker |
+| Runtime injection failed | missing style or missing runtime | Re-bootstrap or fail loudly |
 
 ## Security
-- **No network access**: All operations local
-- **No secrets**: No API keys, no credentials
-- **Codesigning**: macOS ad-hoc signing with `codesign --force --deep --sign -`
-- **Permission checks**: Verify write access before patching
-- **Rollback**: Automatic on failure
+- No app bundle tampering
+- No secrets or credentials are stored
+- No hidden fallback: failures are surfaced as structured diagnostics
+- The runtime is idempotent and safe to re-run

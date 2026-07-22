@@ -2,6 +2,8 @@
 
 این مسیر برای ChatGPT Desktop روی Windows است.
 
+منبع رسمی فونت Vazirmatn: [rastikerdar.github.io/vazirmatn/fa](https://rastikerdar.github.io/vazirmatn/fa)
+
 <p align="center">
   <img src="../../docs/diagrams/desktop-patch-flow.svg" alt="جریان patch کردن ChatGPT Desktop روی Windows" width="100%">
 </p>

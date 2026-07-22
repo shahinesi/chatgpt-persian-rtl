@@ -1,6 +1,10 @@
-# افزونه‌ی کروم برای ChatGPT Persian RTL
+# افزونه‌ی کروم ChatGPT Persian RTL
 
 این پوشه منبع اصلی افزونه‌ی کروم و نسخه‌ی وب است.
+
+<p align="center">
+✨ *RTL با عشق برای فارسی، عربی، عبری و همه‌ی زبان‌های راست‌به‌چپ؛ Vazirmatn هم به یاد صابر راستی‌کردار.* ✨
+</p>
 
 <p align="center">
   <img src="../docs/diagrams/chrome-flow.svg" alt="جریان محدود و امن افزونه کروم برای راست‌چین کردن پیام‌ها" width="100%">
