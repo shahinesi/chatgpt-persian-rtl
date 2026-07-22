@@ -12,10 +12,14 @@
 
 ## توسعه
 
+<div dir="ltr" align="left">
+
 ```bash
 npm test
 npm run build
 ```
+
+</div>
 
 ## فایل‌های مهم
 

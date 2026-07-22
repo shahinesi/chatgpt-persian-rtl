@@ -8,17 +8,25 @@
 
 ## نصب
 
+<div dir="ltr" align="left">
+
 ```bash
 cd desktop
 bash macos/install.sh
 ```
 
+</div>
+
 اگر برنامه در مسیر پیش‌فرض نیست:
+
+<div dir="ltr" align="left">
 
 ```bash
 cd desktop
 bash macos/install.sh /Applications/ChatGPT.app
 ```
+
+</div>
 
 `ChatGPT Classic.app` target این اسکریپت نیست. آن برنامه native است و با `ChatGPT.framework` اجرا می‌شود، نه با `app.asar`.
 
@@ -32,10 +40,14 @@ bash macos/install.sh /Applications/ChatGPT.app
   <img src="../../docs/diagrams/restore-safety.svg" alt="بازگردانی امن نسخه پشتیبان در macOS" width="100%">
 </p>
 
+<div dir="ltr" align="left">
+
 ```bash
 cd desktop
 bash macos/restore.sh
 ```
+
+</div>
 
 ## رفتار فنی
 

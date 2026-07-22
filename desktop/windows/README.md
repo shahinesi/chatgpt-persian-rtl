@@ -10,17 +10,25 @@
 
 ## نصب
 
+<div dir="ltr" align="left">
+
 ```powershell
 cd desktop
 powershell -ExecutionPolicy Bypass -File .\windows\install.ps1
 ```
 
+</div>
+
 اگر برنامه در مسیر پیش‌فرض نیست:
+
+<div dir="ltr" align="left">
 
 ```powershell
 cd desktop
 powershell -ExecutionPolicy Bypass -File .\windows\install.ps1 "$env:LOCALAPPDATA\Programs\ChatGPT\resources\app.asar"
 ```
+
+</div>
 
 ## بازگردانی
 
@@ -28,10 +36,14 @@ powershell -ExecutionPolicy Bypass -File .\windows\install.ps1 "$env:LOCALAPPDAT
   <img src="../../docs/diagrams/restore-safety.svg" alt="بازگردانی امن نسخه پشتیبان در Windows" width="100%">
 </p>
 
+<div dir="ltr" align="left">
+
 ```powershell
 cd desktop
 powershell -ExecutionPolicy Bypass -File .\windows\restore.ps1
 ```
+
+</div>
 
 ## رفتار فنی
 

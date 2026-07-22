@@ -67,22 +67,69 @@
 
 ## نصب با یک کلیک
 
-منظور از «یک کلیک» در این پروژه این است که کاربر نهایی به Node.js و build محلی نیاز ندارد.
+### نصب سریع
 
-- برای وب: از خروجی آماده‌ی `chrome-plugin/dist/` یا نسخه‌ی منتشرشده استفاده کن و افزونه را از `chrome://extensions` بارگذاری کن.
-- برای دسکتاپ macOS: مسیر `desktop/macos/` را ببین.
-- برای دسکتاپ Windows: مسیر `desktop/windows/` را ببین.
+<div dir="ltr" align="left">
 
-## نصب توسط هوش مصنوعی
+```bash
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git
+cd chatgpt-persian-rtl/desktop
+npm install
+npm run patch:macos
+```
 
-اگر می‌خواهی همین کار را به یک AI بدهی، این دستور کار را به آن بده:
+</div>
 
-> پروژه را بخوان، `chrome-plugin/` را برای ChatGPT در وب آماده کن، منطق RTL را برای بولت و متن ترکیبی اصلاح کن، فونت Vazirmatn را داخل پروژه قرار بده، و بخش‌های `desktop/macos/` و `desktop/windows/` را طبق README به‌روز نگه دار.
+برای Windows:
+
+<div dir="ltr" align="left">
+
+```powershell
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git
+Set-Location chatgpt-persian-rtl\desktop
+npm install
+npm run patch:windows
+```
+
+</div>
+
+### نصب مستقیم از اینترنت
+
+<div dir="ltr" align="left">
+
+```bash
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git /tmp/chatgpt-persian-rtl && cd /tmp/chatgpt-persian-rtl/desktop && npm install && npm run patch:macos
+```
+
+</div>
+
+<div dir="ltr" align="left">
+
+```powershell
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git $env:TEMP\chatgpt-persian-rtl; cd $env:TEMP\chatgpt-persian-rtl\desktop; npm install; npm run patch:windows
+```
+
+</div>
 
 ## بازگردانی به حالت اولیه (Restore)
 
-- در وب، افزونه را از Chrome غیرفعال یا حذف کن.
-- در دسکتاپ، بسته‌ی بازگردانی مخصوص سیستم‌عامل را از `desktop/macos/` یا `desktop/windows/` اجرا کن و نسخه‌ی پشتیبان را برگردان.
+<div dir="ltr" align="left">
+
+```bash
+cd chatgpt-persian-rtl/desktop
+npm run restore:macos
+```
+
+</div>
+
+<div dir="ltr" align="left">
+
+```powershell
+Set-Location chatgpt-persian-rtl\desktop
+npm run restore:windows
+```
+
+</div>
 
 ## مشارکت‌کنندگان و فراخوان توسعه
 

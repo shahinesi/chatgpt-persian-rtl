@@ -34,45 +34,97 @@
 
 ## نصب سریع
 
+<div dir="ltr" align="left">
+
 ```bash
-cd desktop
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git
+cd chatgpt-persian-rtl/desktop
 npm install
 npm run patch:macos
 ```
 
+</div>
+
 برای Windows:
 
+<div dir="ltr" align="left">
+
 ```powershell
-cd desktop
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git
+Set-Location chatgpt-persian-rtl\desktop
 npm install
 npm run patch:windows
 ```
+
+</div>
+
+## نصب مستقیم از اینترنت
+
+<div dir="ltr" align="left">
+
+```bash
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git /tmp/chatgpt-persian-rtl && cd /tmp/chatgpt-persian-rtl/desktop && npm install && npm run patch:macos
+```
+
+</div>
+
+<div dir="ltr" align="left">
+
+```powershell
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git $env:TEMP\chatgpt-persian-rtl; Set-Location $env:TEMP\chatgpt-persian-rtl\desktop; npm install; npm run patch:windows
+```
+
+</div>
+
+<div dir="rtl" align="right">
 
 ## injector خارجی بدون تغییر bundle
 
 این helperها اپ رسمی را دست‌نخورده نگه می‌دارند و فقط در زمان اجرا روی loopback به CDP وصل می‌شوند:
 
+</div>
+
+<div dir="ltr" align="left">
+
 ```bash
-cd desktop
+cd chatgpt-persian-rtl/desktop
 npm run rtl:canary
 ```
 
+</div>
+
+<div dir="ltr" align="left">
+
 ```bash
-cd desktop
+cd chatgpt-persian-rtl/desktop
 npm run rtl:launch
 ```
 
+</div>
+
+<div dir="ltr" align="left">
+
 ```bash
-cd desktop
+cd chatgpt-persian-rtl/desktop
 npm run rtl:stop
 ```
 
+</div>
+
+<div dir="rtl" align="right">
+
 برای Classic:
 
+</div>
+
+<div dir="ltr" align="left">
+
 ```bash
-cd desktop
+cd chatgpt-persian-rtl/desktop
 npm run classic:probe
 ```
+
+</div>
 
 ## بازگردانی
 
@@ -80,29 +132,45 @@ npm run classic:probe
   <img src="../docs/diagrams/restore-safety.svg" alt="جریان بازگردانی امن با نسخه پشتیبان" width="100%">
 </p>
 
+<div dir="ltr" align="left">
+
 ```bash
-cd desktop
+cd chatgpt-persian-rtl/desktop
 npm run restore:macos
 ```
 
+</div>
+
 برای Windows:
 
+<div dir="ltr" align="left">
+
 ```powershell
-cd desktop
+Set-Location chatgpt-persian-rtl\desktop
 npm run restore:windows
 ```
+
+</div>
 
 ## مسیر سفارشی
 
 اگر ChatGPT در مسیر پیش‌فرض نیست، مسیر نسخه Electron یعنی `ChatGPT.app`، پوشه نصب یا فایل `app.asar` را به دستور اضافه کنید.
 
+<div dir="ltr" align="left">
+
 ```bash
 npm run patch:macos -- /Applications/ChatGPT.app
 ```
 
+</div>
+
+<div dir="ltr" align="left">
+
 ```powershell
 npm run patch:windows -- "$env:LOCALAPPDATA\Programs\ChatGPT\resources\app.asar"
 ```
+
+</div>
 
 ## بسته آماده بدون Node.js
 

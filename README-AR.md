@@ -67,22 +67,65 @@
 
 ## التثبيت بنقرة واحدة
 
-المقصود هنا أن المستخدم النهائي لا يحتاج إلى Node.js ولا إلى build محلي.
+<div dir="ltr" align="left">
 
-- للويب: استخدم المخرجات الجاهزة في `chrome-plugin/dist/` أو الإصدار المنشور، ثم حمّل الإضافة من `chrome://extensions`.
-- لـ macOS: راجع `desktop/macos/`.
-- لـ Windows: راجع `desktop/windows/`.
+```bash
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git
+cd chatgpt-persian-rtl/desktop
+npm install
+npm run patch:macos
+```
 
-## التثبيت بواسطة الذكاء الاصطناعي
+</div>
 
-إذا أردت أن تنجز هذه الخطوة بواسطة AI، فامنحه هذا الوصف:
+<div dir="ltr" align="left">
 
-> اقرأ المشروع، جهّز `chrome-plugin/` لتطبيق ChatGPT على الويب، حسّن منطق RTL للبولت والنص المختلط، ضمّ خط Vazirmatn إلى المشروع، وأبقِ الأقسام `desktop/macos/` و`desktop/windows/` محدثة وفقًا لـ README.
+```powershell
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git
+Set-Location chatgpt-persian-rtl\desktop
+npm install
+npm run patch:windows
+```
+
+</div>
+
+### التثبيت مباشرةً من الإنترنت
+
+<div dir="ltr" align="left">
+
+```bash
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git /tmp/chatgpt-persian-rtl && cd /tmp/chatgpt-persian-rtl/desktop && npm install && npm run patch:macos
+```
+
+</div>
+
+<div dir="ltr" align="left">
+
+```powershell
+git clone --depth 1 https://github.com/shahinesi/chatgpt-persian-rtl.git $env:TEMP\chatgpt-persian-rtl; Set-Location $env:TEMP\chatgpt-persian-rtl\desktop; npm install; npm run patch:windows
+```
+
+</div>
 
 ## الاسترجاع إلى الحالة الأصلية
 
-- على الويب: عطّل الإضافة أو احذفها من Chrome.
-- على سطح المكتب: شغّل أداة الاسترجاع الخاصة بالنظام من `desktop/macos/` أو `desktop/windows/` ثم أعد النسخة الاحتياطية.
+<div dir="ltr" align="left">
+
+```bash
+cd chatgpt-persian-rtl/desktop
+npm run restore:macos
+```
+
+</div>
+
+<div dir="ltr" align="left">
+
+```powershell
+Set-Location chatgpt-persian-rtl\desktop
+npm run restore:windows
+```
+
+</div>
 
 ## المساهمة والدعوة للتطوير
 
