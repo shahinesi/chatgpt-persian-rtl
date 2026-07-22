@@ -203,18 +203,18 @@ test('patcher contains index.html layer injection logic', () => {
 
 test('rtl-patch.css contains @font-face for Vazirmatn', () => {
   const css = readFileSync(patchCssPath, 'utf8');
-  assert.ok(css.includes('@font-face'), 'must have @font-face');
   assert.ok(css.includes('"Vazirmatn"'), 'must reference Vazirmatn font');
-  assert.ok(css.includes('__VAZIRMATN_REGULAR__'), 'must have regular placeholder');
-  assert.ok(css.includes('__VAZIRMATN_BOLD__'), 'must have bold placeholder');
+  assert.ok(css.includes('__FONT_FACE_BLOCKS__'), 'must have font-face block placeholder');
+  assert.ok(!css.includes('@font-face'), 'template should not inline font-face blocks before runtime insertion');
 });
 
 test('rtl-patch.css contains --font-sans override on message containers', () => {
   const css = readFileSync(patchCssPath, 'utf8');
   assert.ok(css.includes('--font-sans-default: "Vazirmatn"'), 'must override --font-sans-default');
   assert.ok(css.includes('--font-sans: "Vazirmatn"'), 'must override --font-sans');
-  assert.ok(css.includes('[data-message-author-role="user"]'), 'must target user messages');
-  assert.ok(css.includes('[data-message-author-role="assistant"]'), 'must target assistant messages');
+  assert.ok(css.includes('[data-cgpt-rtl-role="composer"]'), 'must target composer');
+  assert.ok(css.includes('[data-cgpt-rtl-role="message"]'), 'must target runtime-managed messages');
+  assert.ok(css.includes('[data-cgpt-rtl-managed="block"]'), 'must target runtime-managed blocks');
 });
 
 test('rtl-patch.css contains composer selectors', () => {
@@ -240,7 +240,7 @@ test('rtl-patch.css contains code/math technical selectors', () => {
 test('runtime uses document.head with fallback', () => {
   const runtime = readFileSync(patchRuntimePath, 'utf8');
   assert.ok(runtime.includes('document.head'), 'must use document.head');
-  assert.ok(runtime.includes('document.head || document.documentElement'), 'must have fallback');
+  assert.ok(runtime.includes('document.head || root'), 'must have fallback');
 });
 
 test('runtime uses STYLE_ID for duplicate prevention', () => {
@@ -266,7 +266,7 @@ test('runtime contains MutationObserver for streaming content', () => {
 test('runtime has window[PATCH_ID] guard', () => {
   const runtime = readFileSync(patchRuntimePath, 'utf8');
   assert.ok(runtime.includes('window[PATCH_ID]'), 'must use window[PATCH_ID] guard');
-  assert.ok(runtime.includes("window[PATCH_ID] = true"), 'must set window[PATCH_ID] = true');
+  assert.ok(runtime.includes('window[PATCH_ID] = state'), 'must install state on window[PATCH_ID]');
 });
 
 test('runtime has typeof window guard for non-DOM contexts', () => {
@@ -466,7 +466,7 @@ test('patched CSS file contains complete @layer chatgpt-rtl block', async () => 
     assert.ok(css.includes('--font-sans:'), 'must contain --font-sans override');
     assert.ok(css.includes('--font-sans-default:'), 'must contain --font-sans-default override');
     assert.ok(css.includes('@font-face'), 'must contain @font-face');
-    assert.ok(css.includes('data:font/ttf;base64,'), 'must contain embedded font data URLs');
+    assert.ok(css.includes('data:font/woff2;base64,'), 'must contain embedded font data URLs');
     assert.ok(css.includes('font-family: "Vazirmatn"'), 'must contain Vazirmatn font-family');
     assert.ok(css.includes('unicode-bidi: plaintext'), 'must contain unicode-bidi');
 
@@ -500,10 +500,10 @@ test('patched JS file contains complete runtime payload', async () => {
     assert.ok(js.includes('(() => {'), 'must contain IIFE');
     assert.ok(js.includes("window[PATCH_ID]"), 'must contain window[PATCH_ID] guard');
     assert.ok(js.includes('document.getElementById(STYLE_ID)'), 'must contain STYLE_ID guard');
-    assert.ok(js.includes('document.head || document.documentElement'), 'must contain document.head fallback');
+    assert.ok(js.includes('document.head || root'), 'must contain document.head fallback');
     assert.ok(js.includes('@layer chatgpt-rtl'), 'must contain embedded CSS');
     assert.ok(js.includes('MutationObserver'), 'must contain MutationObserver');
-    assert.ok(js.includes('chatgpt-persian-rtl-desktop-style'), 'must contain style element ID');
+    assert.ok(js.includes('chatgpt-rtl-style'), 'must contain style element ID');
     assert.ok(js.includes('//# sourceMappingURL=app-main-test.js.map'), 'source map must be preserved');
 
     const runtimeIdx = js.indexOf(`/* ${marker}: runtime */`);

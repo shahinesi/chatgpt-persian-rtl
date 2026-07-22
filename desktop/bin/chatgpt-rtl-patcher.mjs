@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import {
   copyFileSync,
   existsSync,
@@ -21,7 +21,8 @@ import plist from 'plist';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..', '..');
 const desktopRoot = path.resolve(__dirname, '..');
-const chromeFontRoot = path.join(projectRoot, 'chrome-plugin', 'fonts');
+const fontRoot = path.join(desktopRoot, 'shared', 'fonts');
+const webfontRoot = path.join(fontRoot, 'webfonts');
 const patchCssTemplatePath = path.join(desktopRoot, 'shared', 'rtl-patch.css');
 const patchRuntimeTemplatePath = path.join(desktopRoot, 'shared', 'rtl-runtime.js');
 const marker = 'ChatGPT Persian RTL desktop patch';
@@ -87,6 +88,78 @@ function sleep(ms) {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 }
 
+function sha256Hex(buffer) {
+  return createHash('sha256').update(buffer).digest('hex');
+}
+
+function inspectFontMetadata(fontPath) {
+  const script = `
+import json
+import sys
+from fontTools.ttLib import TTFont
+
+font_path = sys.argv[1]
+font = TTFont(font_path)
+name = font["name"]
+family = name.getDebugName(1) or ""
+subfamily = name.getDebugName(2) or ""
+weight = int(font["OS/2"].usWeightClass)
+style = "italic" if getattr(font.get("post"), "italicAngle", 0) not in (0, None) else "normal"
+axes = []
+if "fvar" in font:
+    for axis in font["fvar"].axes:
+        axes.append({
+            "tag": axis.axisTag,
+            "min": float(axis.minValue),
+            "default": float(axis.defaultValue),
+            "max": float(axis.maxValue)
+        })
+
+print(json.dumps({
+    "family": family,
+    "subfamily": subfamily,
+    "weight": weight,
+    "style": style,
+    "axes": axes,
+    "isVariable": bool(axes)
+}))
+`;
+  const result = spawnSync('python3', ['-c', script, fontPath], { encoding: 'utf8' });
+  if (result.status !== 0) {
+    throw new Error((result.stderr || result.stdout || `Failed to inspect font metadata for ${fontPath}`).trim());
+  }
+  return JSON.parse(result.stdout.trim());
+}
+
+function readValidatedFontAsset(fontDir, fileName) {
+  const fontPath = path.join(fontDir, fileName);
+  const stat = statSync(fontPath);
+  if (!stat.isFile()) {
+    throw new Error(`Font file is missing: ${fontPath}`);
+  }
+  if (stat.size <= 0) {
+    throw new Error(`Font file is empty: ${fontPath}`);
+  }
+
+  const buffer = readFileSync(fontPath);
+  if (buffer.length < 4 || buffer.subarray(0, 4).toString('ascii') !== 'wOF2') {
+    throw new Error(`Font file is not a valid WOFF2 file: ${fontPath}`);
+  }
+
+  const sha256 = sha256Hex(buffer);
+  const base64 = buffer.toString('base64');
+  return {
+    fileName,
+    fontPath,
+    size: stat.size,
+    sha256,
+    signature: buffer.subarray(0, 4).toString('ascii'),
+    base64Size: base64.length,
+    dataUrl: `data:font/woff2;base64,${base64}`,
+    metadata: inspectFontMetadata(fontPath)
+  };
+}
+
 function resolveTarget() {
   const targetPlatform = platform();
   const rootCandidates = customPath ? [customPath] : candidateRoots(targetPlatform);
@@ -149,14 +222,6 @@ function resolveTarget() {
   );
 }
 
-function readFontAsDataUrl(fileName) {
-  const fontPath = path.join(chromeFontRoot, fileName);
-  if (!existsSync(fontPath)) fail(`فونت پیدا نشد: ${fontPath}`);
-
-  const base64 = readFileSync(fontPath).toString('base64');
-  return `data:font/ttf;base64,${base64}`;
-}
-
 function processPathForTarget(target) {
   if (target.platform === 'darwin') {
     return path.join(target.appPath, 'Contents', 'MacOS', 'ChatGPT');
@@ -168,9 +233,93 @@ function processPathForTarget(target) {
 function patchCss() {
   if (!existsSync(patchCssTemplatePath)) fail(`فایل CSS پچ پیدا نشد: ${patchCssTemplatePath}`);
 
+  const staticCandidates = [
+    { key: 'thin', fileName: 'Vazirmatn-Thin.woff2', weight: 100 },
+    { key: 'extraLight', fileName: 'Vazirmatn-ExtraLight.woff2', weight: 200 },
+    { key: 'light', fileName: 'Vazirmatn-Light.woff2', weight: 300 },
+    { key: 'regular', fileName: 'Vazirmatn-Regular.woff2', weight: 400 },
+    { key: 'medium', fileName: 'Vazirmatn-Medium.woff2', weight: 500 },
+    { key: 'semiBold', fileName: 'Vazirmatn-SemiBold.woff2', weight: 600 },
+    { key: 'bold', fileName: 'Vazirmatn-Bold.woff2', weight: 700 },
+    { key: 'extraBold', fileName: 'Vazirmatn-ExtraBold.woff2', weight: 800 },
+    { key: 'black', fileName: 'Vazirmatn-Black.woff2', weight: 900 }
+  ];
+
+  const variableAsset = readValidatedFontAsset(webfontRoot, 'Vazirmatn[wght].woff2');
+  const variableMetadata = variableAsset.metadata;
+  const variableAxes = Array.isArray(variableMetadata.axes) ? variableMetadata.axes : [];
+  const variableAxis = variableAxes.find((axis) => axis.tag === 'wght');
+  const variableValid = Boolean(
+    variableMetadata.family === 'Vazirmatn' &&
+    variableMetadata.style === 'normal' &&
+    variableMetadata.isVariable === true &&
+    variableAxis &&
+    variableAxis.min <= 100 &&
+    variableAxis.max >= 900
+  );
+
+  let fontMode = 'variable';
+  let fontAssets;
+
+  if (variableValid) {
+    fontAssets = { variable: variableAsset };
+  } else {
+    const fallbackAssets = {};
+    const fallbackReasons = [];
+
+    for (const candidate of staticCandidates) {
+      const asset = readValidatedFontAsset(webfontRoot, candidate.fileName);
+      const meta = asset.metadata;
+      const weightOk = meta.family === 'Vazirmatn' && meta.style === 'normal' && meta.weight === candidate.weight && !meta.isVariable;
+      if (!weightOk) {
+        fallbackReasons.push({
+          fileName: candidate.fileName,
+          reason: `Expected Vazirmatn ${candidate.weight} normal, got family=${meta.family} style=${meta.style} weight=${meta.weight} variable=${meta.isVariable}`
+        });
+      }
+      fallbackAssets[candidate.key] = asset;
+    }
+
+    if (fallbackReasons.length > 0) {
+      throw new Error(`Variable font invalid and static fallback validation failed: ${JSON.stringify(fallbackReasons)}`);
+    }
+
+    fontMode = 'static';
+    fontAssets = fallbackAssets;
+  }
+
+  const fontFaceBlocks = fontMode === 'variable'
+    ? `
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("${fontAssets.variable.dataUrl}") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+`
+    : [
+        { weight: 100, asset: fontAssets.thin },
+        { weight: 200, asset: fontAssets.extraLight },
+        { weight: 300, asset: fontAssets.light },
+        { weight: 400, asset: fontAssets.regular },
+        { weight: 500, asset: fontAssets.medium },
+        { weight: 600, asset: fontAssets.semiBold },
+        { weight: 700, asset: fontAssets.bold },
+        { weight: 800, asset: fontAssets.extraBold },
+        { weight: 900, asset: fontAssets.black }
+      ].map(({ weight, asset }) => `
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("${asset.dataUrl}") format("woff2");
+  font-style: normal;
+  font-weight: ${weight};
+  font-display: swap;
+}
+`).join('\n');
+
   return readFileSync(patchCssTemplatePath, 'utf8')
-    .replace('__VAZIRMATN_REGULAR__', readFontAsDataUrl('Vazirmatn-Regular.ttf'))
-    .replace('__VAZIRMATN_BOLD__', readFontAsDataUrl('Vazirmatn-Bold.ttf'));
+    .replace('__FONT_FACE_BLOCKS__', fontFaceBlocks);
 }
 
 function patchRuntime() {
