@@ -36,90 +36,147 @@ main,
 #prompt-textarea,
 form [role="textbox"][contenteditable="true"],
 form textarea,
-[data-cgpt-rtl-role="composer"],
-[data-cgpt-rtl-role="message"],
-[data-cgpt-rtl-managed="block"] {
+[data-cgpt-rtl-managed="composer-text"],
+[data-cgpt-rtl-managed="user-text"],
+[data-cgpt-rtl-managed="assistant-text"] {
   font-family: var(--font-sans) !important;
   font-synthesis: none !important;
 }
 
 @layer chatgpt-rtl {
-  [data-cgpt-rtl-role="composer"][data-cgpt-rtl-dir="rtl"],
-  [data-cgpt-rtl-role="message"][data-cgpt-rtl-dir="rtl"],
-  [data-cgpt-rtl-managed="block"][data-cgpt-rtl-dir="rtl"] {
+  [data-cgpt-rtl-managed="composer-text"] {
+    unicode-bidi: plaintext !important;
+    text-align: start !important;
+  }
+
+  [data-cgpt-rtl-managed="user-text"],
+  [data-cgpt-rtl-managed="assistant-text"] {
+    unicode-bidi: plaintext !important;
+  }
+
+  [data-cgpt-rtl-managed="user-text"][dir="rtl"] {
     direction: rtl !important;
     text-align: right !important;
-    unicode-bidi: plaintext !important;
   }
 
-  [data-cgpt-rtl-role="composer"][data-cgpt-rtl-dir="ltr"],
-  [data-cgpt-rtl-role="message"][data-cgpt-rtl-dir="ltr"],
-  [data-cgpt-rtl-managed="block"][data-cgpt-rtl-dir="ltr"] {
+  [data-cgpt-rtl-managed="user-text"][dir="ltr"] {
     direction: ltr !important;
     text-align: left !important;
-    unicode-bidi: plaintext !important;
   }
 
-  [data-cgpt-rtl-role="message"] {
+  [data-cgpt-rtl-managed="assistant-text"] {
+    text-align: start !important;
+  }
+
+  [data-cgpt-logical-line="assistant"] {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: baseline !important;
+    justify-content: flex-start !important;
+    column-gap: 0.25em !important;
+    row-gap: 0 !important;
     max-width: 100%;
+    min-width: 0;
   }
 
-  [data-cgpt-rtl-role="message"] ul,
-  [data-cgpt-rtl-role="message"] ol,
-  [data-cgpt-rtl-managed="block"] ul,
-  [data-cgpt-rtl-managed="block"] ol {
-    direction: inherit !important;
-    text-align: inherit !important;
-    list-style-position: outside !important;
+  [data-cgpt-logical-line="assistant"][data-cgpt-flow-dir="rtl"] {
+    direction: rtl !important;
   }
 
-  [data-cgpt-rtl-role="message"] li,
-  [data-cgpt-rtl-managed="block"] li {
-    direction: inherit !important;
-    text-align: inherit !important;
-    unicode-bidi: plaintext !important;
+  [data-cgpt-logical-line="assistant"][data-cgpt-flow-dir="ltr"] {
+    direction: ltr !important;
   }
 
-  [data-cgpt-rtl-role="message"] pre,
-  [data-cgpt-rtl-role="message"] code,
-  [data-cgpt-rtl-role="message"] kbd,
-  [data-cgpt-rtl-role="message"] samp,
-  [data-cgpt-rtl-role="message"] math,
-  [data-cgpt-rtl-role="message"] .CodeMirror,
-  [data-cgpt-rtl-role="message"] .cm-editor,
-  [data-cgpt-rtl-role="message"] .monaco-editor,
-  [data-cgpt-rtl-role="message"] .katex,
-  [data-cgpt-rtl-role="message"] .MathJax,
-  [data-cgpt-rtl-role="message"] [data-math],
-  [data-cgpt-rtl-role="message"] [data-language],
-  [data-cgpt-rtl-managed="block"] pre,
-  [data-cgpt-rtl-managed="block"] code,
-  [data-cgpt-rtl-managed="block"] kbd,
-  [data-cgpt-rtl-managed="block"] samp,
-  [data-cgpt-rtl-managed="block"] math,
-  [data-cgpt-rtl-managed="block"] .CodeMirror,
-  [data-cgpt-rtl-managed="block"] .cm-editor,
-  [data-cgpt-rtl-managed="block"] .monaco-editor,
-  [data-cgpt-rtl-managed="block"] .katex,
-  [data-cgpt-rtl-managed="block"] .MathJax,
-  [data-cgpt-rtl-managed="block"] [data-math],
-  [data-cgpt-rtl-managed="block"] [data-language] {
+  [data-cgpt-logical-line="assistant"] > [data-cgpt-bidi-run="rtl"] {
+    direction: rtl !important;
+    unicode-bidi: isolate !important;
+    text-align: right !important;
+    white-space: pre-wrap;
+    min-width: 0;
+  }
+
+  [data-cgpt-logical-line="assistant"] > [data-cgpt-bidi-run="ltr"] {
+    direction: ltr !important;
+    unicode-bidi: isolate !important;
+    text-align: left !important;
+    white-space: pre-wrap;
+    min-width: 0;
+  }
+
+  ol[data-cgpt-list-direction="rtl"],
+  ul[data-cgpt-list-direction="rtl"],
+  ol[data-cgpt-list-direction="rtl"] > li,
+  ul[data-cgpt-list-direction="rtl"] > li {
+    direction: rtl !important;
+  }
+
+  ol[data-cgpt-list-direction="ltr"],
+  ul[data-cgpt-list-direction="ltr"],
+  ol[data-cgpt-list-direction="ltr"] > li,
+  ul[data-cgpt-list-direction="ltr"] > li {
+    direction: ltr !important;
+  }
+
+  [data-cgpt-rtl-managed="user-text"] pre,
+  [data-cgpt-rtl-managed="user-text"] code,
+  [data-cgpt-rtl-managed="user-text"] kbd,
+  [data-cgpt-rtl-managed="user-text"] samp,
+  [data-cgpt-rtl-managed="user-text"] math,
+  [data-cgpt-rtl-managed="user-text"] .CodeMirror,
+  [data-cgpt-rtl-managed="user-text"] .cm-editor,
+  [data-cgpt-rtl-managed="user-text"] .monaco-editor,
+  [data-cgpt-rtl-managed="user-text"] .katex,
+  [data-cgpt-rtl-managed="user-text"] .MathJax,
+  [data-cgpt-rtl-managed="user-text"] [data-math],
+  [data-cgpt-rtl-managed="user-text"] [data-language],
+  [data-cgpt-rtl-managed="assistant-text"] pre,
+  [data-cgpt-rtl-managed="assistant-text"] code,
+  [data-cgpt-rtl-managed="assistant-text"] kbd,
+  [data-cgpt-rtl-managed="assistant-text"] samp,
+  [data-cgpt-rtl-managed="assistant-text"] math,
+  [data-cgpt-rtl-managed="assistant-text"] .CodeMirror,
+  [data-cgpt-rtl-managed="assistant-text"] .cm-editor,
+  [data-cgpt-rtl-managed="assistant-text"] .monaco-editor,
+  [data-cgpt-rtl-managed="assistant-text"] .katex,
+  [data-cgpt-rtl-managed="assistant-text"] .MathJax,
+  [data-cgpt-rtl-managed="assistant-text"] [data-math],
+  [data-cgpt-rtl-managed="assistant-text"] [data-language] {
     direction: ltr !important;
     text-align: left !important;
     unicode-bidi: isolate !important;
+    writing-mode: horizontal-tb !important;
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
   }
 
-  [data-cgpt-rtl-role="message"] code,
-  [data-cgpt-rtl-role="message"] kbd,
-  [data-cgpt-rtl-role="message"] samp,
-  [data-cgpt-rtl-role="message"] a[href],
-  [data-cgpt-rtl-role="message"] bdi,
-  [data-cgpt-rtl-managed="block"] code,
-  [data-cgpt-rtl-managed="block"] kbd,
-  [data-cgpt-rtl-managed="block"] samp,
-  [data-cgpt-rtl-managed="block"] a[href],
-  [data-cgpt-rtl-managed="block"] bdi {
+  pre,
+  code,
+  kbd,
+  samp,
+  [data-language],
+  .CodeMirror,
+  .cm-editor,
+  .monaco-editor,
+  .katex,
+  .MathJax,
+  [data-math] {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: isolate !important;
+    writing-mode: horizontal-tb !important;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
+  }
+
+  [data-cgpt-rtl-managed="user-text"] code,
+  [data-cgpt-rtl-managed="user-text"] kbd,
+  [data-cgpt-rtl-managed="user-text"] samp,
+  [data-cgpt-rtl-managed="user-text"] a[href],
+  [data-cgpt-rtl-managed="user-text"] bdi,
+  [data-cgpt-rtl-managed="assistant-text"] code,
+  [data-cgpt-rtl-managed="assistant-text"] kbd,
+  [data-cgpt-rtl-managed="assistant-text"] samp,
+  [data-cgpt-rtl-managed="assistant-text"] a[href],
+  [data-cgpt-rtl-managed="assistant-text"] bdi {
     unicode-bidi: isolate !important;
   }
 }

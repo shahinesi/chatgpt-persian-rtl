@@ -179,8 +179,8 @@ test('rtl-patch.css places direction rules inside @layer chatgpt-rtl', () => {
   assert.ok(css.includes('@layer chatgpt-rtl'), 'CSS must contain @layer chatgpt-rtl');
   const layerStart = css.indexOf('@layer chatgpt-rtl');
   const layerBlock = css.slice(layerStart);
-  assert.ok(layerBlock.includes('[data-cgpt-rtl-dir="rtl"]'), 'direction rules must be inside @layer chatgpt-rtl');
-  assert.ok(layerBlock.includes('[data-cgpt-rtl-dir="ltr"]'), 'LTR direction rules must be inside @layer chatgpt-rtl');
+  assert.ok(layerBlock.includes('[dir="rtl"]'), 'direction rules must be inside @layer chatgpt-rtl');
+  assert.ok(layerBlock.includes('[dir="ltr"]'), 'LTR direction rules must be inside @layer chatgpt-rtl');
 });
 
 test('rtl-patch.css font overrides are outside any @layer', () => {
@@ -212,9 +212,28 @@ test('rtl-patch.css contains --font-sans override on message containers', () => 
   const css = readFileSync(patchCssPath, 'utf8');
   assert.ok(css.includes('--font-sans-default: "Vazirmatn"'), 'must override --font-sans-default');
   assert.ok(css.includes('--font-sans: "Vazirmatn"'), 'must override --font-sans');
-  assert.ok(css.includes('[data-cgpt-rtl-role="composer"]'), 'must target composer');
-  assert.ok(css.includes('[data-cgpt-rtl-role="message"]'), 'must target runtime-managed messages');
-  assert.ok(css.includes('[data-cgpt-rtl-managed="block"]'), 'must target runtime-managed blocks');
+  assert.ok(css.includes('[data-cgpt-rtl-managed="composer-text"]'), 'must target composer text blocks');
+  assert.ok(css.includes('[data-cgpt-rtl-managed="user-text"]'), 'must target user text blocks');
+  assert.ok(css.includes('[data-cgpt-rtl-managed="assistant-text"]'), 'must target assistant text blocks');
+  assert.ok(!css.includes('[data-cgpt-rtl-managed="message-text"]'), 'must not target generic message text blocks');
+  assert.ok(!css.includes('[data-cgpt-rtl-role="message"]'), 'must not target runtime-managed message roles');
+});
+
+test('rtl-patch.css contains native assistant bidi selectors', () => {
+  const css = readFileSync(patchCssPath, 'utf8');
+  assert.ok(css.includes('[data-cgpt-rtl-managed="assistant-text"]'), 'must contain assistant text selector');
+  assert.ok(css.includes('unicode-bidi: plaintext !important'), 'assistant text must use plaintext bidi');
+  assert.ok(css.includes('text-align: start !important'), 'assistant text must use start alignment');
+  assert.ok(css.includes('[data-cgpt-rtl-managed="user-text"][dir="rtl"]'), 'must keep user RTL selector');
+  assert.ok(css.includes('[data-cgpt-rtl-managed="user-text"][dir="ltr"]'), 'must keep user LTR selector');
+  assert.ok(css.includes('[data-cgpt-logical-line="assistant"]'), 'must contain logical-line selector');
+  assert.ok(css.includes('[data-cgpt-logical-line="assistant"] > [data-cgpt-bidi-run="ltr"]'), 'must contain LTR run selector');
+  assert.ok(css.includes('[data-cgpt-logical-line="assistant"] > [data-cgpt-bidi-run="rtl"]'), 'must contain RTL run selector');
+  assert.ok(css.includes('[data-cgpt-flow-dir="rtl"]'), 'must contain RTL flow selector');
+  assert.ok(css.includes('[data-cgpt-flow-dir="ltr"]'), 'must contain LTR flow selector');
+  assert.ok(css.includes('ol[data-cgpt-list-direction="rtl"]'), 'must contain RTL list structural selector');
+  assert.ok(css.includes('ul[data-cgpt-list-direction="ltr"]'), 'must contain LTR list structural selector');
+  assert.ok(!css.includes('row-reverse'), 'must not use row-reverse for run placement');
 });
 
 test('rtl-patch.css contains composer selectors', () => {
@@ -223,6 +242,13 @@ test('rtl-patch.css contains composer selectors', () => {
   assert.ok(css.includes('contenteditable="true"'), 'must target contenteditable elements');
   assert.ok(css.includes('role="textbox"'), 'must target textbox role');
   assert.ok(css.includes('form textarea'), 'must target form textarea');
+});
+
+test('rtl-patch.css keeps list direction scoped to runtime-owned selectors', () => {
+  const css = readFileSync(patchCssPath, 'utf8');
+  assert.ok(!css.includes('list-style-position: outside'), 'must not override list marker side');
+  assert.ok(!css.includes('direction: inherit !important;'), 'must not force inherited list direction');
+  assert.ok(!css.includes('text-align: inherit !important;'), 'must not force inherited list alignment');
 });
 
 test('rtl-patch.css contains code/math technical selectors', () => {
@@ -235,12 +261,48 @@ test('rtl-patch.css contains code/math technical selectors', () => {
   assert.ok(css.includes('monospace'), 'must set monospace font for code');
 });
 
+test('runtime font-face diagnostics omit raw src payloads', () => {
+  const runtime = readFileSync(patchRuntimePath, 'utf8');
+  const snippetStart = runtime.indexOf('function getFontFaceSources(style)');
+  const snippetEnd = runtime.indexOf('async function ensureFontStatus()');
+  const snippet = runtime.slice(snippetStart, snippetEnd);
+  assert.ok(snippet.includes('family:'), 'must still record family');
+  assert.ok(snippet.includes('weight:'), 'must still record weight');
+  assert.ok(snippet.includes('style:'), 'must still record style');
+  assert.ok(!snippet.includes('src:'), 'must not expose raw src payloads in diagnostics');
+});
+
+test('runtime uses general logical-line directional-run engine', () => {
+  const runtime = readFileSync(patchRuntimePath, 'utf8');
+  assert.ok(runtime.includes('applyAssistantNativeMessage'), 'must support native assistant message processing');
+  assert.ok(runtime.includes('applyAssistantNativeState'), 'must support native assistant element processing');
+  assert.ok(runtime.includes('applyAssistantLogicalLines'), 'must support logical-line transformation');
+  assert.ok(runtime.includes('segmentDirectionalRuns'), 'must support general directional-run segmentation');
+  assert.ok(runtime.includes('discoverLogicalLineSegments'), 'must discover logical lines generically');
+  assert.ok(runtime.includes('buildLogicalLine'), 'must build logical-line containers');
+  assert.ok(runtime.includes('data-cgpt-logical-line'), 'must stamp logical-line container');
+  assert.ok(runtime.includes('cgptFlowDir'), 'must stamp structural flow direction');
+  assert.ok(runtime.includes('cgptBidiRun'), 'must stamp bidi runs');
+  assert.ok(!runtime.includes('isEnglishFirstMixedText'), 'must not keep English-first special case');
+  assert.ok(!runtime.includes('splitEnglishFirstMixedRuns'), 'must not keep English-first splitter');
+  assert.ok(!runtime.includes('applyAssistantMixedLineState'), 'must not keep mixed-line special case');
+});
+
 // ── 7. Runtime template validation ──────────────────────────────────
 
 test('runtime uses document.head with fallback', () => {
   const runtime = readFileSync(patchRuntimePath, 'utf8');
   assert.ok(runtime.includes('document.head'), 'must use document.head');
   assert.ok(runtime.includes('document.head || root'), 'must have fallback');
+});
+
+test('runtime keeps composer initialization free of input handlers', () => {
+  const runtime = readFileSync(patchRuntimePath, 'utf8');
+  assert.ok(runtime.includes("setAttributeIfChanged(block, 'dir', 'auto')"), 'composer root must use native dir=auto');
+  assert.ok(runtime.includes('applyAutoListDirection'), 'lists must use native dir=auto');
+  assert.ok(!runtime.includes("root.addEventListener('input', onInput"), 'composer must not bind input handler');
+  assert.ok(!runtime.includes("root.addEventListener('compositionstart', onCompositionStart"), 'composer must not bind composition handlers');
+  assert.ok(!runtime.includes("root.addEventListener('compositionend', onCompositionEnd"), 'composer must not bind composition handlers');
 });
 
 test('runtime uses STYLE_ID for duplicate prevention', () => {
@@ -267,6 +329,22 @@ test('runtime has window[PATCH_ID] guard', () => {
   const runtime = readFileSync(patchRuntimePath, 'utf8');
   assert.ok(runtime.includes('window[PATCH_ID]'), 'must use window[PATCH_ID] guard');
   assert.ok(runtime.includes('window[PATCH_ID] = state'), 'must install state on window[PATCH_ID]');
+});
+
+test('runtime publishes build marker and diagnostics globals', () => {
+  const runtime = readFileSync(patchRuntimePath, 'utf8');
+  assert.ok(runtime.includes('__CHATGPT_RTL_BUILD__'), 'must accept build marker placeholder');
+  assert.ok(runtime.includes('__CHATGPT_RTL_RUNTIME_SHA256__'), 'must accept runtime hash placeholder');
+  assert.ok(runtime.includes('__CHATGPT_RTL_CSS_SHA256__'), 'must accept CSS hash placeholder');
+  assert.ok(runtime.includes('__CHATGPT_RTL_DIAGNOSTIC_MODE__'), 'must accept diagnostic mode placeholder');
+  assert.ok(runtime.includes('window.__CHATGPT_RTL_BUILD__ = BUILD_MARKER'), 'must publish build marker to window');
+  assert.ok(runtime.includes('window.__CHATGPT_RTL_DIAGNOSTICS__ = state.diagnostics()'), 'must publish diagnostics to window');
+  assert.ok(runtime.includes('function destroy('), 'must expose destroy helper');
+});
+
+test('runtime styles carry build marker data attribute', () => {
+  const runtime = readFileSync(patchRuntimePath, 'utf8');
+  assert.ok(runtime.includes('data-chatgpt-rtl-build'), 'must stamp injected style with build marker data attribute');
 });
 
 test('runtime has typeof window guard for non-DOM contexts', () => {
@@ -877,6 +955,205 @@ test('rtl-patch.css passes the comment-aware [class*="code"] check', () => {
     !stripped.includes('[class*="code"]'),
     'after stripping comments from rtl-patch.css, [class*="code"] must not appear as a selector'
   );
+});
+
+// ── 20. Codex assistant classification regression ───────────────────
+
+test('runtime exposes Codex assistant root detector', () => {
+  const runtime = readFileSync(patchRuntimePath, 'utf8');
+  assert.ok(runtime.includes('isAssistantMessageRoot'), 'must define isAssistantMessageRoot');
+  assert.ok(runtime.includes('data-local-conversation-final-assistant'), 'must recognize Codex final-assistant selector');
+  assert.ok(runtime.includes('data-content-search-unit-key'), 'must recognize Codex content-search-unit-key selector');
+  assert.ok(runtime.includes('isAssistantUnitKey'), 'must gate by assistant unit-key value');
+  assert.ok(runtime.includes('reclassifyAssistantDescendants'), 'must reclassify stale generic message nodes');
+  assert.ok(runtime.includes('reclassifyStaleAssistantNodes'), 'must walk existing assistant roots on boot');
+});
+
+test('inferMessageManagedTag now recognizes Codex assistant roots', () => {
+  const runtime = readFileSync(patchRuntimePath, 'utf8');
+  const fnStart = runtime.indexOf('function inferMessageManagedTag');
+  assert.ok(fnStart >= 0, 'inferMessageManagedTag must be defined');
+  const fnEnd = runtime.indexOf('\n  }\n', fnStart);
+  const fnBody = runtime.slice(fnStart, fnEnd);
+  assert.ok(fnBody.includes('isAssistantMessageRoot(root)'), 'inferMessageManagedTag must call isAssistantMessageRoot');
+  assert.ok(
+    fnBody.indexOf("if (root.closest('[data-user-message-bubble]')) return 'user-text';") < fnBody.indexOf("if (isAssistantMessageRoot(root)) return 'assistant-text';"),
+    'user bubble detection must precede assistant detection'
+  );
+  assert.ok(
+    fnBody.indexOf("if (isAssistantMessageRoot(root)) return 'assistant-text';") < fnBody.indexOf("return 'message-text';"),
+    'assistant detection must precede generic message-text fallback'
+  );
+});
+
+test('processMessage routes Codex assistant roots through applyAssistantNativeMessage', () => {
+  const runtime = readFileSync(patchRuntimePath, 'utf8');
+  const fnStart = runtime.indexOf('function processMessage(message)');
+  const fnEnd = runtime.indexOf('\n  }\n', fnStart);
+  const fnBody = runtime.slice(fnStart, fnEnd);
+  assert.ok(fnBody.includes('isAssistantMessageRoot(message)'), 'processMessage must short-circuit for assistant roots');
+  assert.ok(fnBody.includes('reclassifyAssistantDescendants(message)'), 'processMessage must clear stale generic message state');
+});
+
+test('MESSAGE_ROOT_SELECTOR includes Codex assistant selectors', () => {
+  const runtime = readFileSync(patchRuntimePath, 'utf8');
+  const msgStart = runtime.indexOf('const MESSAGE_ROOT_SELECTOR');
+  const msgEnd = runtime.indexOf('].join(\',\');', msgStart);
+  const body = runtime.slice(msgStart, msgEnd);
+  assert.ok(body.includes('data-local-conversation-final-assistant'), 'must include Codex final-assistant selector');
+  assert.ok(body.includes('data-content-search-unit-key'), 'must include Codex content-search-unit-key selector');
+});
+
+test('logical-line engine preserves run order and flow attributes', () => {
+  const runtime = readFileSync(patchRuntimePath, 'utf8');
+  assert.ok(runtime.includes("container.dataset.cgptLogicalLine = 'assistant'"), 'must stamp logical-line');
+  assert.ok(runtime.includes('container.dataset.cgptFlowDir = resolvedFlow'), 'must stamp flow dir');
+  assert.ok(runtime.includes("bdi.dataset.cgptBidiRun = run.dir"), 'must stamp each run dir');
+  assert.ok(runtime.includes('segmentDirectionalRuns'), 'must use general segmenter');
+  assert.ok(runtime.includes('migrateObsoleteLogicalWrappers'), 'must migrate obsolete wrappers');
+  assert.ok(runtime.includes('applyListStructuralDirection'), 'must apply list structural flow');
+  assert.ok(runtime.includes('data-cgpt-list-direction'), 'must stamp list structural direction');
+});
+
+// ── 21. Directional-run matrix (string-level pure helpers) ───────────
+
+function splitTextIntoDirectionalPiecesForTest(text) {
+  const RTL = /[\u0590-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF]/u;
+  const LTR = /[A-Za-z\u00C0-\u024F\u1E00-\u1EFF]/u;
+  const source = String(text || '');
+  if (!source) return [];
+  const atomicRe = /https?:\/\/\S+|www\.\S+|[^\s@]+@[^\s@]+\.[^\s@]+|(?:[A-Za-z]:\\|\/|\.\/|\.\.\/)[\w./\\-]+/giu;
+  const tokens = [];
+  let lastIndex = 0;
+  let match;
+  while ((match = atomicRe.exec(source)) !== null) {
+    if (match.index > lastIndex) tokens.push({ type: 'text', text: source.slice(lastIndex, match.index) });
+    tokens.push({ type: 'atomic-ltr', text: match[0] });
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < source.length) tokens.push({ type: 'text', text: source.slice(lastIndex) });
+
+  const pieces = [];
+  let currentDir = null;
+  let currentText = '';
+  let leading = '';
+  const flush = () => {
+    if (currentDir && currentText) pieces.push({ dir: currentDir, text: currentText });
+    currentDir = null;
+    currentText = '';
+  };
+  for (const token of tokens) {
+    if (token.type === 'atomic-ltr') {
+      if (!currentDir) {
+        currentDir = 'ltr';
+        currentText = leading + token.text;
+        leading = '';
+      } else if (currentDir === 'ltr') {
+        currentText += token.text;
+      } else {
+        flush();
+        currentDir = 'ltr';
+        currentText = token.text;
+      }
+      continue;
+    }
+    for (const char of Array.from(token.text)) {
+      let charDir = null;
+      if (RTL.test(char)) charDir = 'rtl';
+      else if (LTR.test(char)) charDir = 'ltr';
+      if (charDir) {
+        if (!currentDir) {
+          currentDir = charDir;
+          currentText = leading + char;
+          leading = '';
+          continue;
+        }
+        if (currentDir === charDir) {
+          currentText += char;
+          continue;
+        }
+        flush();
+        currentDir = charDir;
+        currentText = char;
+        continue;
+      }
+      if (currentDir) currentText += char;
+      else leading += char;
+    }
+  }
+  if (currentDir) pieces.push({ dir: currentDir, text: currentText });
+  else if (leading) pieces.push({ dir: 'ltr', text: leading });
+  return pieces;
+}
+
+function assertRunMatrix(label, text, expectedDirs, expectedJoined) {
+  const pieces = splitTextIntoDirectionalPiecesForTest(text);
+  assert.deepEqual(pieces.map((p) => p.dir), expectedDirs, `${label}: dirs`);
+  assert.equal(pieces.map((p) => p.text).join(''), expectedJoined ?? text, `${label}: textContent preserved`);
+}
+
+test('directional-run matrix: pure Persian and pure English', () => {
+  assertRunMatrix('fa-only', 'من امروز خوشحالم.', ['rtl']);
+  assertRunMatrix('en-only', 'I am learning new things every day.', ['ltr']);
+});
+
+test('directional-run matrix: Persian then English and English then Persian', () => {
+  assertRunMatrix(
+    'fa-then-en',
+    'من امروز خوشحالم، and I feel full of energy.',
+    ['rtl', 'ltr']
+  );
+  assertRunMatrix(
+    'en-then-fa',
+    'This is a simple example, و این فقط یک نمونه کوتاه است.',
+    ['ltr', 'rtl']
+  );
+});
+
+test('directional-run matrix: alternating multi-run lines', () => {
+  assertRunMatrix(
+    'fa-en-fa',
+    'سلام hello دوباره',
+    ['rtl', 'ltr', 'rtl']
+  );
+  assertRunMatrix(
+    'en-fa-en',
+    'hello سلام world',
+    ['ltr', 'rtl', 'ltr']
+  );
+});
+
+test('directional-run matrix: punctuation, numbers, emoji, URL, email', () => {
+  assertRunMatrix(
+    'punct-boundary',
+    'Hello, دنیا!',
+    ['ltr', 'rtl']
+  );
+  assertRunMatrix(
+    'numbers',
+    'قیمت 123 دلار',
+    ['rtl']
+  );
+  assertRunMatrix(
+    'emoji-leading',
+    '😀 Hello دنیا',
+    ['ltr', 'rtl']
+  );
+  const withUrl = 'ببین https://example.com/path را';
+  const pieces = splitTextIntoDirectionalPiecesForTest(withUrl);
+  assert.ok(pieces.some((p) => p.dir === 'ltr' && p.text.includes('https://example.com/path')), 'URL is atomic LTR');
+  assert.equal(pieces.map((p) => p.text).join(''), withUrl, 'URL line text preserved');
+});
+
+test('runtime logical-line CSS and list direction selectors stay scoped', () => {
+  const css = readFileSync(patchCssPath, 'utf8');
+  assert.ok(css.includes('[data-cgpt-logical-line="assistant"]'), 'logical-line container present');
+  assert.ok(css.includes('flex-direction: row !important'), 'uses row not reverse');
+  assert.ok(!css.includes('list-style-position'), 'must not touch list-style-position');
+  assert.ok(!css.includes('list-style-type'), 'must not touch list-style-type');
+  const runtime = readFileSync(patchRuntimePath, 'utf8');
+  assert.ok(runtime.includes('migrateObsoleteLogicalWrappers'), 'migrates obsolete wrappers');
+  assert.ok(runtime.includes("data-cgpt-mixed-line=\"assistant\""), 'still recognizes old mixed-line for migration');
 });
 
 // ── Summary ─────────────────────────────────────────────────────────

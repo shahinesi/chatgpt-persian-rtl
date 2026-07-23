@@ -17,6 +17,7 @@
     "restore:windows": "node bin/chatgpt-rtl-patcher.mjs --platform=windows --restore",
     "rtl:launch": "node bin/codex-rtl-launcher.mjs",
     "rtl:canary": "node bin/codex-rtl-launcher.mjs --canary",
+    "rtl:diagnose": "node bin/codex-rtl-launcher.mjs --diagnose",
     "rtl:stop": "node bin/codex-rtl-stop.mjs",
     "classic:probe": "swift bin/codex-classic-probe.swift",
     "classic:rtl": "swift bin/codex-classic-rtl.swift --proof --send",

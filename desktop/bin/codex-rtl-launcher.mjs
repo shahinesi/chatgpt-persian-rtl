@@ -15,6 +15,8 @@ const bundleId = 'com.openai.codex';
 const patchId = 'chatgpt-persian-rtl-desktop-runtime';
 const args = new Set(process.argv.slice(2));
 const canaryMode = args.has('--canary');
+const diagnoseMode = args.has('--diagnose') || canaryMode;
+const runtimeBuildMarker = 'bidi-live-debug-v1';
 const proofCss = [
   '.ProseMirror {',
   '  outline: 3px solid red !important;',
@@ -170,11 +172,22 @@ function buildFontFaceBlocks(fontMode, fontAssets) {
 `).join('\n');
 }
 
-function buildInjectionSource(fontMode, fontAssets) {
+function buildInjectionSource(fontMode, fontAssets, options) {
+  const {
+    buildMarker,
+    runtimeSourceHash,
+    cssSourceHash,
+    diagnosticMode
+  } = options;
   const css = readFileSync(cssPath, 'utf8');
   const inlinedCss = css.replace('__FONT_FACE_BLOCKS__', buildFontFaceBlocks(fontMode, fontAssets));
-  const sourceCss = canaryMode ? `${inlinedCss}\n${proofCss}` : inlinedCss;
-  const runtime = readFileSync(runtimePath, 'utf8').replace('__CHATGPT_PERSIAN_RTL_CSS__', JSON.stringify(sourceCss));
+  const sourceCss = diagnosticMode ? `${inlinedCss}\n${proofCss}` : inlinedCss;
+  const runtime = readFileSync(runtimePath, 'utf8')
+    .replace('__CHATGPT_RTL_BUILD__', JSON.stringify(buildMarker))
+    .replace('__CHATGPT_RTL_RUNTIME_SHA256__', JSON.stringify(runtimeSourceHash))
+    .replace('__CHATGPT_RTL_CSS_SHA256__', JSON.stringify(cssSourceHash))
+    .replace('__CHATGPT_RTL_DIAGNOSTIC_MODE__', String(diagnosticMode))
+    .replace('__CHATGPT_PERSIAN_RTL_CSS__', JSON.stringify(sourceCss));
   return runtime;
 }
 
@@ -327,6 +340,8 @@ async function main() {
   ];
 
   const variableAsset = readValidatedFontAsset(webfontRoot, 'Vazirmatn[wght].woff2');
+  const runtimeSourceHash = sha256Hex(readFileSync(runtimePath));
+  const cssSourceHash = sha256Hex(readFileSync(cssPath));
   const validation = {
     mode: 'variable',
     reason: null,
@@ -408,7 +423,12 @@ async function main() {
   const version = await waitForJsonVersion(port);
   const { ws, send, on } = await cdpConnect(version.webSocketDebuggerUrl);
 
-  const runtimeSource = buildInjectionSource(validation.mode, fontAssets);
+  const runtimeSource = buildInjectionSource(validation.mode, fontAssets, {
+    buildMarker: runtimeBuildMarker,
+    runtimeSourceHash,
+    cssSourceHash,
+    diagnosticMode: diagnoseMode
+  });
   const targetStates = new Map();
   const sessionStates = new Map();
   const targetToSession = new Map();
@@ -959,7 +979,10 @@ async function main() {
     );
   });
   const payload = {
-    mode: canaryMode ? 'canary' : 'rtl',
+    mode: canaryMode ? 'canary' : diagnoseMode ? 'diagnose' : 'rtl',
+    buildMarker: runtimeBuildMarker,
+    runtimeSourceHash,
+    cssSourceHash,
     port,
     fontValidation: validation,
     attachedTargets: settled.map(({ targetId, type, url, title, sessionId, runtimeInjectionResult, styleInjectionResult, diagnostics }) => ({
