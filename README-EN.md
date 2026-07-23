@@ -34,6 +34,12 @@ A smart RTL package for ChatGPT with two main paths:
 ## Why this project?
 
 <p align="center">
+  <img src="docs/diagrams/rtl-problem.svg" alt="RTL problem comparison before and after ChatGPT Persian RTL" width="100%">
+</p>
+
+### Before and after
+
+<p align="center">
   <table>
     <tr>
       <td align="center" width="50%">

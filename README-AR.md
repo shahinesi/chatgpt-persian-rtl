@@ -34,6 +34,12 @@
 ## لماذا هذا المشروع؟
 
 <p align="center">
+  <img src="docs/diagrams/rtl-problem.svg" alt="مقارنة مشكلة RTL قبل وبعد ChatGPT Persian RTL" width="100%">
+</p>
+
+### مقارنة قبل وبعد
+
+<p align="center">
   <table>
     <tr>
       <td align="center" width="50%">
