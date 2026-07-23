@@ -1,0 +1,15 @@
+{
+  "name": "chatgpt-persian-rtl-vscode",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "rtl:launch": "node bin/codex-vscode-rtl-launcher.mjs",
+    "rtl:launch:bg": "node bin/codex-vscode-rtl-launcher.mjs --bg",
+    "rtl:stop": "node bin/codex-vscode-rtl-stop.mjs",
+    "rtl:diagnose": "node bin/codex-vscode-rtl-diagnose.mjs",
+    "test": "node --check bin/vscode-rtl-state.mjs && node --check bin/codex-vscode-rtl-launcher.mjs && node --check bin/codex-vscode-rtl-stop.mjs && node --check bin/codex-vscode-rtl-diagnose.mjs && node bin/codex-vscode-rtl-launcher.test.mjs",
+    "rtl:launch:isolated": "node bin/codex-vscode-rtl-launcher.mjs --isolated",
+    "rtl:launch:bg:isolated": "node bin/codex-vscode-rtl-launcher.mjs --bg --isolated"
+  }
+}
