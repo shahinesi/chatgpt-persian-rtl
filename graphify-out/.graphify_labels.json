@@ -25,5 +25,8 @@
   "23": "restore.ps1",
   "24": "codex-vscode-rtl-launcher.mjs",
   "25": "codex-vscode-rtl-launcher.test.mjs",
-  "26": "scripts"
+  "26": "scripts",
+  "27": "VS Code Codex RTL Design",
+  "28": "ADR: VS Code Codex RTL Runtime Injection",
+  "29": "🌟 پچ راست‌چین Codex در VS Code"
 }

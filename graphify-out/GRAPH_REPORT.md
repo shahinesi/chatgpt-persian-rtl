@@ -1,16 +1,16 @@
 # Graph Report - chatgpt-persian-rtl  (2026-07-24)
 
 ## Corpus Check
-- 43 files · ~73,352 words
+- 46 files · ~94,433 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 472 nodes · 986 edges · 27 communities (22 shown, 5 thin omitted)
+- 519 nodes · 1030 edges · 30 communities (25 shown, 5 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 9 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `67f95c39`
+- Built from commit: `d3aac51c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -36,6 +36,9 @@
 - codex-vscode-rtl-launcher.mjs
 - codex-vscode-rtl-launcher.test.mjs
 - scripts
+- VS Code Codex RTL Design
+- ADR: VS Code Codex RTL Runtime Injection
+- 🌟 پچ راست‌چین Codex در VS Code
 
 ## God Nodes (most connected - your core abstractions)
 1. `runForeground()` - 19 edges
@@ -69,7 +72,7 @@
 - **Diagram References in Documentation** — docs_diagrams_chrome_flow_svg, docs_diagrams_desktop_patch_flow_svg, docs_diagrams_project_map_svg, docs_diagrams_restore_safety_svg, docs_diagrams_rtl_problem_svg [EXTRACTED 1.00]
 - **Vazirmatn Font Integration** — chrome_plugin_fonts_notice_txt, desktop_adr_md, desktop_design_md, desktop_readme_md, vazirmatn_font [EXTRACTED 1.00]
 
-## Communities (27 total, 5 thin omitted)
+## Communities (30 total, 5 thin omitted)
 
 ### Community 0 - "rtl-runtime.js"
 Cohesion: 0.08
@@ -135,16 +138,28 @@ Nodes (11): cssPath, desktopShared, __dirname, launcherPath, pendingTests, proje
 Cohesion: 0.15
 Nodes (12): name, private, scripts, rtl:diagnose, rtl:launch, rtl:launch:bg, rtl:launch:bg:isolated, rtl:launch:isolated (+4 more)
 
+### Community 27 - "VS Code Codex RTL Design"
+Cohesion: 0.10
+Nodes (19): 1. Launcher, 2. Shared state module, 3. Codex target resolution, 4. Runtime injection, 5. Background mode, 6. Diagnose command, 7. Stop command, Architecture (+11 more)
+
+### Community 28 - "ADR: VS Code Codex RTL Runtime Injection"
+Cohesion: 0.13
+Nodes (14): 1. External launcher به‌جای patch داخلی, 2. Targeted webview injection, 3. Persistent runtime, 4. Shared font and bidi assets, 5. Background daemon with explicit state, ADR: VS Code Codex RTL Runtime Injection, Alternatives Considered, Benefits (+6 more)
+
+### Community 29 - "🌟 پچ راست‌چین Codex در VS Code"
+Cohesion: 0.17
+Nodes (11): امنیت و حریم خصوصی, حالت‌ها, دستورها, رفتار اجرایی, لایسنس, محدودیت‌ها, مقایسه قبل و بعد, نصب سریع (+3 more)
+
 ## Knowledge Gaps
-- **116 isolated node(s):** `__dirname`, `LAUNCHER_SCRIPT`, `CODEx_WEBVIEW_TARGET_TYPES`, `__dirname`, `projectRoot` (+111 more)
+- **152 isolated node(s):** `Status`, `Context`, `1. External launcher به‌جای patch داخلی`, `2. Targeted webview injection`, `3. Persistent runtime` (+147 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **What connects `__dirname`, `LAUNCHER_SCRIPT`, `CODEx_WEBVIEW_TARGET_TYPES` to the rest of the system?**
-  _116 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `Status`, `Context`, `1. External launcher به‌جای patch داخلی` to the rest of the system?**
+  _152 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `rtl-runtime.js` be split into smaller, more focused modules?**
   _Cohesion score 0.08210526315789474 - nodes in this community are weakly interconnected._
 - **Should `chatgpt-rtl-patcher.mjs` be split into smaller, more focused modules?**

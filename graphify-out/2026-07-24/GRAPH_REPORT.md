@@ -1,16 +1,16 @@
-# Graph Report - chatgpt-persian-rtl  (2026-07-23)
+# Graph Report - chatgpt-persian-rtl  (2026-07-24)
 
 ## Corpus Check
-- 37 files · ~28,082 words
+- 43 files · ~73,352 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 347 nodes · 667 edges · 24 communities (19 shown, 5 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 8 edges (avg confidence: 0.5)
+- 472 nodes · 986 edges · 27 communities (22 shown, 5 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 9 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `2822eb33`
+- Built from commit: `67f95c39`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -33,22 +33,33 @@
 - install.sh
 - restore.sh
 - codebase-memory-index.sh
+- codex-vscode-rtl-launcher.mjs
+- codex-vscode-rtl-launcher.test.mjs
+- scripts
 
 ## God Nodes (most connected - your core abstractions)
-1. `scripts` - 14 edges
-2. `applyResolvedDirection()` - 12 edges
-3. `processMessage()` - 12 edges
-4. `main()` - 11 edges
-5. `isComposerElement()` - 11 edges
-6. `applyComposerNativeState()` - 11 edges
-7. `applyAssistantNativeMessage()` - 11 edges
-8. `applyAutoListDirection()` - 11 edges
-9. `removeStyleIfPresent()` - 10 edges
-10. `applyAssistantNativeState()` - 10 edges
+1. `runForeground()` - 19 edges
+2. `runDaemon()` - 18 edges
+3. `runBackground()` - 17 edges
+4. `log()` - 17 edges
+5. `processTargetInfo()` - 14 edges
+6. `watcherLoop()` - 14 edges
+7. `scripts` - 14 edges
+8. `sleep()` - 12 edges
+9. `loadState()` - 12 edges
+10. `applyResolvedDirection()` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `README.md (Desktop)` --references--> `Vazirmatn Font`  [EXTRACTED]
   desktop/README.md → chrome-plugin/fonts/NOTICE.txt
+- `main()` --calls--> `checkCDP()`  [EXTRACTED]
+  vscode/bin/codex-vscode-rtl-diagnose.mjs → vscode/bin/vscode-rtl-state.mjs
+- `main()` --calls--> `checkPid()`  [EXTRACTED]
+  vscode/bin/codex-vscode-rtl-diagnose.mjs → vscode/bin/vscode-rtl-state.mjs
+- `main()` --calls--> `launchctlIsLoaded()`  [EXTRACTED]
+  vscode/bin/codex-vscode-rtl-diagnose.mjs → vscode/bin/vscode-rtl-state.mjs
+- `main()` --calls--> `launchctlPrint()`  [EXTRACTED]
+  vscode/bin/codex-vscode-rtl-diagnose.mjs → vscode/bin/vscode-rtl-state.mjs
 
 ## Import Cycles
 - None detected.
@@ -58,7 +69,7 @@
 - **Diagram References in Documentation** — docs_diagrams_chrome_flow_svg, docs_diagrams_desktop_patch_flow_svg, docs_diagrams_project_map_svg, docs_diagrams_restore_safety_svg, docs_diagrams_rtl_problem_svg [EXTRACTED 1.00]
 - **Vazirmatn Font Integration** — chrome_plugin_fonts_notice_txt, desktop_adr_md, desktop_design_md, desktop_readme_md, vazirmatn_font [EXTRACTED 1.00]
 
-## Communities (24 total, 5 thin omitted)
+## Communities (27 total, 5 thin omitted)
 
 ### Community 0 - "rtl-runtime.js"
 Cohesion: 0.08
@@ -112,20 +123,28 @@ Nodes (4): expectedMatches, manifest, requiredFiles, root
 Cohesion: 0.53
 Nodes (4): abort(), check(), run_node_list(), verify-patch.sh script
 
+### Community 24 - "codex-vscode-rtl-launcher.mjs"
+Cohesion: 0.06
+Nodes (92): cdpConnect(), main(), sanitizeReportState(), assertNormalVSCodeAvailable(), buildCandidateState(), buildFontFaceBlocks(), buildInjectionSource(), buildJsonListTargetMap() (+84 more)
+
+### Community 25 - "codex-vscode-rtl-launcher.test.mjs"
+Cohesion: 0.15
+Nodes (11): cssPath, desktopShared, __dirname, launcherPath, pendingTests, projectRoot, runtimePath, stateModulePath (+3 more)
+
+### Community 26 - "scripts"
+Cohesion: 0.15
+Nodes (12): name, private, scripts, rtl:diagnose, rtl:launch, rtl:launch:bg, rtl:launch:bg:isolated, rtl:launch:isolated (+4 more)
+
 ## Knowledge Gaps
-- **90 isolated node(s):** `__dirname`, `patchCssPath`, `patchRuntimePath`, `patcherPath`, `pending` (+85 more)
+- **116 isolated node(s):** `__dirname`, `LAUNCHER_SCRIPT`, `CODEx_WEBVIEW_TARGET_TYPES`, `__dirname`, `projectRoot` (+111 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Foundation` connect `codex-classic-probe.swift` to `codex-classic-rtl.swift`?**
-  _High betweenness centrality (0.002) - this node is a cross-community bridge._
-- **Why does `AppKit` connect `codex-classic-probe.swift` to `codex-classic-rtl.swift`?**
-  _High betweenness centrality (0.002) - this node is a cross-community bridge._
-- **What connects `__dirname`, `patchCssPath`, `patchRuntimePath` to the rest of the system?**
-  _90 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `__dirname`, `LAUNCHER_SCRIPT`, `CODEx_WEBVIEW_TARGET_TYPES` to the rest of the system?**
+  _116 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `rtl-runtime.js` be split into smaller, more focused modules?**
   _Cohesion score 0.08210526315789474 - nodes in this community are weakly interconnected._
 - **Should `chatgpt-rtl-patcher.mjs` be split into smaller, more focused modules?**
@@ -134,3 +153,7 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
 - **Should `codex-rtl-launcher.mjs` be split into smaller, more focused modules?**
   _Cohesion score 0.11904761904761904 - nodes in this community are weakly interconnected._
+- **Should `manifest.json` be split into smaller, more focused modules?**
+  _Cohesion score 0.08695652173913043 - nodes in this community are weakly interconnected._
+- **Should `codex-vscode-rtl-launcher.mjs` be split into smaller, more focused modules?**
+  _Cohesion score 0.06164527666736798 - nodes in this community are weakly interconnected._

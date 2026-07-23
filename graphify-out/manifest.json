@@ -115,8 +115,8 @@
     "semantic_hash": ""
   },
   "README-FA.md": {
-    "mtime": 1784808125.8930612,
-    "ast_hash": "475dc6298085e3666e8eacb161040d54",
+    "mtime": 1784842374.12351,
+    "ast_hash": "5da19c4fc3ed859a56233a007dc157c3",
     "semantic_hash": ""
   },
   "README-HE.md": {
@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1784808125.8915725,
-    "ast_hash": "37100f0172e23bd1ea91e060272c0397",
+    "mtime": 1784842374.1224825,
+    "ast_hash": "c0f8ef5cf3fd43a5ef7d94ca888862ea",
     "semantic_hash": ""
   },
   "SECURITY.md": {
@@ -312,6 +312,31 @@
   "docs/assets/Before_RTL.png": {
     "mtime": 1784804692.9012308,
     "ast_hash": "b23045e036d746c3826181bdee322b51",
+    "semantic_hash": ""
+  },
+  "vscode/ADR.md": {
+    "mtime": 1784842472.1279974,
+    "ast_hash": "2d12e638d536617020032064cb9c5664",
+    "semantic_hash": ""
+  },
+  "vscode/DESIGN.md": {
+    "mtime": 1784842472.1282814,
+    "ast_hash": "f9a9afdbd4c10cb7c1671fcafd5d514b",
+    "semantic_hash": ""
+  },
+  "vscode/README.md": {
+    "mtime": 1784842374.1212728,
+    "ast_hash": "779bcdd737256b25abe430504b332fae",
+    "semantic_hash": ""
+  },
+  "docs/assets/Codex_VSCode_After.png": {
+    "mtime": 1784842332.2143805,
+    "ast_hash": "033f1529c3d7d0c6c06f4bef89ea1bbd",
+    "semantic_hash": ""
+  },
+  "docs/assets/Codex_VSCode_Before.png": {
+    "mtime": 1784842332.210649,
+    "ast_hash": "06d5192e913ba69bc5d04fa366f98c2a",
     "semantic_hash": ""
   }
 }
