@@ -22,8 +22,5 @@
   "20": "codebase-memory-index.sh",
   "21": "popup.html",
   "22": "install.ps1",
-  "23": "restore.ps1",
-  "24": "codex-vscode-rtl-launcher.mjs",
-  "25": "codex-vscode-rtl-launcher.test.mjs",
-  "26": "scripts"
+  "23": "restore.ps1"
 }

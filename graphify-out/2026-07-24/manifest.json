@@ -105,29 +105,29 @@
     "semantic_hash": ""
   },
   "README-AR.md": {
-    "mtime": 1784808125.8950377,
-    "ast_hash": "9c159dfb4ef38e7950d34d0a3f573561",
-    "semantic_hash": ""
+    "mtime": 1784714619.2180803,
+    "ast_hash": "2d6d880064120be8a4c911e8bec18b68",
+    "semantic_hash": "2d6d880064120be8a4c911e8bec18b68"
   },
   "README-EN.md": {
-    "mtime": 1784808125.8957853,
-    "ast_hash": "d68abf26f41973b16513093c0c644bb3",
-    "semantic_hash": ""
+    "mtime": 1784714619.2171202,
+    "ast_hash": "bcd5298af21fd5b60df4c29d621404ea",
+    "semantic_hash": "bcd5298af21fd5b60df4c29d621404ea"
   },
   "README-FA.md": {
-    "mtime": 1784808125.8930612,
-    "ast_hash": "475dc6298085e3666e8eacb161040d54",
-    "semantic_hash": ""
+    "mtime": 1784714619.2178106,
+    "ast_hash": "f2466d9dbd9259382a699993255e3dd4",
+    "semantic_hash": "f2466d9dbd9259382a699993255e3dd4"
   },
   "README-HE.md": {
-    "mtime": 1784808125.8966835,
-    "ast_hash": "a08872f6ec43e7ec291a4c9b9d060df4",
-    "semantic_hash": ""
+    "mtime": 1784714619.2183168,
+    "ast_hash": "98ee6db4fd68f2610d29b37ef80a42c9",
+    "semantic_hash": "98ee6db4fd68f2610d29b37ef80a42c9"
   },
   "README.md": {
-    "mtime": 1784808125.8915725,
-    "ast_hash": "37100f0172e23bd1ea91e060272c0397",
-    "semantic_hash": ""
+    "mtime": 1784714577.342813,
+    "ast_hash": "50b69329d06a2a89b30f07b7e3edc23f",
+    "semantic_hash": "50b69329d06a2a89b30f07b7e3edc23f"
   },
   "SECURITY.md": {
     "mtime": 1784615874.7782903,
@@ -267,51 +267,6 @@
   "chrome-plugin/icons/icon48.png": {
     "mtime": 1784614112.6410534,
     "ast_hash": "770c671fd39612ebcc8362a3403fcfae",
-    "semantic_hash": ""
-  },
-  "vscode/bin/codex-vscode-rtl-diagnose.mjs": {
-    "mtime": 1784829004.0,
-    "ast_hash": "e215e72b97fbd1e5b7fbedecfcc7a4b8",
-    "semantic_hash": ""
-  },
-  "vscode/bin/codex-vscode-rtl-launcher.mjs": {
-    "mtime": 1784829004.0,
-    "ast_hash": "49b36ab6ebd9261dff422dadbbe5e187",
-    "semantic_hash": ""
-  },
-  "vscode/bin/codex-vscode-rtl-launcher.test.mjs": {
-    "mtime": 1784829042.0,
-    "ast_hash": "f7da149fef6bf3f46efede6b9988b1f0",
-    "semantic_hash": ""
-  },
-  "vscode/bin/codex-vscode-rtl-stop.mjs": {
-    "mtime": 1784828862.0,
-    "ast_hash": "b95394e00011e9271bb340672ae7e552",
-    "semantic_hash": ""
-  },
-  "vscode/bin/vscode-rtl-state.mjs": {
-    "mtime": 1784829004.0,
-    "ast_hash": "812510b1b622cb9fc5a7f7038ae88a24",
-    "semantic_hash": ""
-  },
-  "vscode/package.json": {
-    "mtime": 1784829004.0,
-    "ast_hash": "48afc5073969006f4e06ea55b59fda41",
-    "semantic_hash": ""
-  },
-  "README.txt": {
-    "mtime": 1784829084.0,
-    "ast_hash": "0c07f9b86959debd0d58017dc77a551b",
-    "semantic_hash": ""
-  },
-  "docs/assets/After_RTL.png": {
-    "mtime": 1784804280.5485158,
-    "ast_hash": "6c4a8deddfc517fd6adfe16e811f6493",
-    "semantic_hash": ""
-  },
-  "docs/assets/Before_RTL.png": {
-    "mtime": 1784804692.9012308,
-    "ast_hash": "b23045e036d746c3826181bdee322b51",
     "semantic_hash": ""
   }
 }
