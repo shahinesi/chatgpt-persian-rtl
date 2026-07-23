@@ -1,18 +1,13 @@
 <div align="center">
   <img src="chrome-plugin/assets/hero.svg" alt="ChatGPT Persian RTL" width="100%">
 
-  <br>
-
   [![Manifest V3](https://img.shields.io/badge/Manifest-V3-10a37f)](chrome-plugin/manifest.json)
+  [![VS Code Codex](https://img.shields.io/badge/VS_Code-Codex_RTL-007ACC)](vscode/README.md)
   [![Validation](https://github.com/shahinesi/chatgpt-persian-rtl/actions/workflows/validate.yml/badge.svg)](https://github.com/shahinesi/chatgpt-persian-rtl/actions/workflows/validate.yml)
   [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
   [![No tracking](https://img.shields.io/badge/tracking-none-success)](SECURITY.md)
 
-  <br>
-
   <strong>npm version</strong> · <strong>License: MIT</strong> · <strong>PRs Welcome</strong> · <strong>GitHub stars</strong>
-
-  <br><br>
 
   [🇮🇷 نسخه فارسی](README-FA.md) | [🇸🇦 العربية](README-AR.md) | [🇮🇱 עברית](README-HE.md) | [🌍 English](README-EN.md)
 </div>
@@ -20,7 +15,7 @@
 # 🌟 پچ راست‌چین ChatGPT فارسی
 **پچ خودکار راست‌به‌چپ و تایپوگرافی خوش‌خوان برای ChatGPT Desktop و نسخه‌ی وب.**
 
-پکیج راست‌چین هوشمند برای ChatGPT که دو مسیر اصلی دارد:
+پکیج راست‌چین هوشمند برای ChatGPT و Codex که سه مسیر اصلی دارد:
 
 <p align="center">
 ✨ *با عشق برای فارسی، عربی، عبری و همه‌ی زبان‌های راست‌چین؛ Vazirmatn هم به یاد صابر راستی‌کردار.* ✨
@@ -28,6 +23,7 @@
 
 - `chrome-plugin/` برای افزونه‌ی کروم و نسخه‌ی وب
 - `desktop/` برای بسته‌ی پچ و بازگردانی ChatGPT دسکتاپ روی macOS و Windows
+- `vscode/` برای راست‌چین Codex داخل VS Code روی macOS
 
 > این پروژه مستقل است و هیچ وابستگی یا تاییدی از سمت OpenAI ندارد.
 
@@ -72,6 +68,13 @@
 | `chrome-plugin/` | افزونه‌ی Manifest V3 برای ChatGPT در وب |
 | `desktop/macos/` | نصب و بازگردانی ChatGPT دسکتاپ روی macOS |
 | `desktop/windows/` | نصب و بازگردانی ChatGPT دسکتاپ روی Windows |
+| `vscode/` | اجرای راست‌چین Codex در VS Code با launcher و diagnose مستقل |
+
+## Codex در VS Code
+
+اگر هدفت فقط پنل Codex در VS Code است، مستندات و اسکرین‌شات‌های مسیر مستقل اینجاست:
+
+- [راهنمای `vscode/README.md`](vscode/README.md)
 
 ## ویژگی‌ها
 
