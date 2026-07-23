@@ -34,7 +34,18 @@
 ## لماذا هذا المشروع؟
 
 <p align="center">
-  <img src="docs/diagrams/rtl-problem.svg" alt="مقارنة مشكلة RTL قبل وبعد ChatGPT Persian RTL" width="100%">
+  <table>
+    <tr>
+      <td align="center" width="50%">
+        <strong>قبل التعديل</strong><br>
+        <img src="docs/assets/Before_RTL.png" alt="مقارنة قبل تعديل RTL" width="100%">
+      </td>
+      <td align="center" width="50%">
+        <strong>بعد التعديل</strong><br>
+        <img src="docs/assets/After_RTL.png" alt="مقارنة بعد تعديل RTL" width="100%">
+      </td>
+    </tr>
+  </table>
 </p>
 
 - يجعل النص العربي والفارسي باتجاه RTL مع أولوية للقراءة

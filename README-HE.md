@@ -34,7 +34,18 @@
 ## למה הפרויקט הזה?
 
 <p align="center">
-  <img src="docs/diagrams/rtl-problem.svg" alt="השוואת בעיית RTL לפני ואחרי ChatGPT Persian RTL" width="100%">
+  <table>
+    <tr>
+      <td align="center" width="50%">
+        <strong>לפני התיקון</strong><br>
+        <img src="docs/assets/Before_RTL.png" alt="לפני תיקון RTL" width="100%">
+      </td>
+      <td align="center" width="50%">
+        <strong>אחרי התיקון</strong><br>
+        <img src="docs/assets/After_RTL.png" alt="אחרי תיקון RTL" width="100%">
+      </td>
+    </tr>
+  </table>
 </p>
 
 - מציג טקסטים בעברית ובערבית כ־RTL עם עדיפות לקריאות

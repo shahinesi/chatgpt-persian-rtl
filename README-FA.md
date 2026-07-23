@@ -34,7 +34,18 @@
 ## چرا این پروژه؟
 
 <p align="center">
-  <img src="docs/diagrams/rtl-problem.svg" alt="مقایسه مشکل RTL قبل و بعد از ChatGPT Persian RTL" width="100%">
+  <table>
+    <tr>
+      <td align="center" width="50%">
+        <strong>قبل از پچ</strong><br>
+        <img src="docs/assets/Before_RTL.png" alt="مقایسه قبل از راست‌چین" width="100%">
+      </td>
+      <td align="center" width="50%">
+        <strong>بعد از پچ</strong><br>
+        <img src="docs/assets/After_RTL.png" alt="مقایسه بعد از راست‌چین" width="100%">
+      </td>
+    </tr>
+  </table>
 </p>
 
 - متن فارسی و عربی را با اولویت خوانایی راست‌چین می‌کند

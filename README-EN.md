@@ -34,7 +34,18 @@ A smart RTL package for ChatGPT with two main paths:
 ## Why this project?
 
 <p align="center">
-  <img src="docs/diagrams/rtl-problem.svg" alt="RTL problem comparison before and after ChatGPT Persian RTL" width="100%">
+  <table>
+    <tr>
+      <td align="center" width="50%">
+        <strong>Before the patch</strong><br>
+        <img src="docs/assets/Before_RTL.png" alt="Before the RTL patch" width="100%">
+      </td>
+      <td align="center" width="50%">
+        <strong>After the patch</strong><br>
+        <img src="docs/assets/After_RTL.png" alt="After the RTL patch" width="100%">
+      </td>
+    </tr>
+  </table>
 </p>
 
 - Right-aligns Persian and Arabic text with readability first
