@@ -1,0 +1,192 @@
+{
+  "chrome-plugin/content.js": {
+    "mtime": 1784615643.8019764,
+    "ast_hash": "8322b4b86c833889abc67bde626464d4",
+    "semantic_hash": "8322b4b86c833889abc67bde626464d4"
+  },
+  "chrome-plugin/manifest.json": {
+    "mtime": 1784614112.6411934,
+    "ast_hash": "4ccb9656605664b349cdc0655ee2a36d",
+    "semantic_hash": "4ccb9656605664b349cdc0655ee2a36d"
+  },
+  "chrome-plugin/package.json": {
+    "mtime": 1784614112.6413255,
+    "ast_hash": "95d432401dbf66c7efe7df1b50f753ab",
+    "semantic_hash": "95d432401dbf66c7efe7df1b50f753ab"
+  },
+  "chrome-plugin/popup.js": {
+    "mtime": 1784615428.1813054,
+    "ast_hash": "ab459b65e12814bc7199d219213c4a97",
+    "semantic_hash": "ab459b65e12814bc7199d219213c4a97"
+  },
+  "chrome-plugin/scripts/package.sh": {
+    "mtime": 1784615439.3104525,
+    "ast_hash": "c835c39db5867f31bb40cf84d514865d",
+    "semantic_hash": "c835c39db5867f31bb40cf84d514865d"
+  },
+  "chrome-plugin/scripts/validate.mjs": {
+    "mtime": 1784615542.368272,
+    "ast_hash": "aac6fa9052f6336521a7d374cab9f104",
+    "semantic_hash": "aac6fa9052f6336521a7d374cab9f104"
+  },
+  "desktop/bin/chatgpt-rtl-patcher.mjs": {
+    "mtime": 1784713105.2930112,
+    "ast_hash": "4ceac07d467f7652055b2a54e5a71c15",
+    "semantic_hash": "4ceac07d467f7652055b2a54e5a71c15"
+  },
+  "desktop/bin/chatgpt-rtl-patcher.test.mjs": {
+    "mtime": 1784738724.4723876,
+    "ast_hash": "f24a52c5ea653b94624986eb20306e74",
+    "semantic_hash": "f24a52c5ea653b94624986eb20306e74"
+  },
+  "desktop/bin/codex-classic-probe.swift": {
+    "mtime": 1784708475.0168,
+    "ast_hash": "293ea54fc5e0cf429fac6fec52a2a24d",
+    "semantic_hash": "293ea54fc5e0cf429fac6fec52a2a24d"
+  },
+  "desktop/bin/codex-classic-rtl.swift": {
+    "mtime": 1784708288.4253728,
+    "ast_hash": "aa64b1e345f79b0ed4614526fbbbce19",
+    "semantic_hash": "aa64b1e345f79b0ed4614526fbbbce19"
+  },
+  "desktop/bin/codex-rtl-launcher.mjs": {
+    "mtime": 1784717525.8485801,
+    "ast_hash": "a7139b53df40620e1ef884d40e9e9897",
+    "semantic_hash": "a7139b53df40620e1ef884d40e9e9897"
+  },
+  "desktop/bin/codex-rtl-stop.mjs": {
+    "mtime": 1784701399.7845328,
+    "ast_hash": "9e187219167da73299a6f23492837206",
+    "semantic_hash": "9e187219167da73299a6f23492837206"
+  },
+  "desktop/bin/verify-patch.sh": {
+    "mtime": 1784649958.0313861,
+    "ast_hash": "60a4ae66dca35d8cab07b6466709af7d",
+    "semantic_hash": "60a4ae66dca35d8cab07b6466709af7d"
+  },
+  "desktop/macos/install.sh": {
+    "mtime": 1784623948.2136173,
+    "ast_hash": "825497c0e0530f97497bf7e594318736",
+    "semantic_hash": "825497c0e0530f97497bf7e594318736"
+  },
+  "desktop/macos/restore.sh": {
+    "mtime": 1784619695.7113862,
+    "ast_hash": "392600b089a69b407f502cdda3efdcc1",
+    "semantic_hash": "392600b089a69b407f502cdda3efdcc1"
+  },
+  "desktop/package.json": {
+    "mtime": 1784717529.0491998,
+    "ast_hash": "592b5079325b9e45944eab5d923b1b83",
+    "semantic_hash": "592b5079325b9e45944eab5d923b1b83"
+  },
+  "desktop/shared/rtl-runtime.js": {
+    "mtime": 1784738668.77816,
+    "ast_hash": "f5eac45d79513c439fc4bba7032cf0e1",
+    "semantic_hash": "f5eac45d79513c439fc4bba7032cf0e1"
+  },
+  "desktop/windows/install.ps1": {
+    "mtime": 1784616241.9673462,
+    "ast_hash": "49ed3f1fbea374c186f5b2dd230cfcce",
+    "semantic_hash": "49ed3f1fbea374c186f5b2dd230cfcce"
+  },
+  "desktop/windows/restore.ps1": {
+    "mtime": 1784616247.7986767,
+    "ast_hash": "7628261f1b5df0ed85b0ba8a82f68f04",
+    "semantic_hash": "7628261f1b5df0ed85b0ba8a82f68f04"
+  },
+  "package.json": {
+    "mtime": 1784625281.8533664,
+    "ast_hash": "7e7234d5810a7c4bdb1c82283a32da8b",
+    "semantic_hash": "7e7234d5810a7c4bdb1c82283a32da8b"
+  },
+  "scripts/codebase-memory-index.sh": {
+    "mtime": 1784761544.7005453,
+    "ast_hash": "956ef724f9b2ee00f850891cdd1ac7eb",
+    "semantic_hash": "956ef724f9b2ee00f850891cdd1ac7eb"
+  },
+  "README-AR.md": {
+    "mtime": 1784714619.2180803,
+    "ast_hash": "2d6d880064120be8a4c911e8bec18b68",
+    "semantic_hash": "2d6d880064120be8a4c911e8bec18b68"
+  },
+  "README-EN.md": {
+    "mtime": 1784714619.2171202,
+    "ast_hash": "bcd5298af21fd5b60df4c29d621404ea",
+    "semantic_hash": "bcd5298af21fd5b60df4c29d621404ea"
+  },
+  "README-FA.md": {
+    "mtime": 1784714619.2178106,
+    "ast_hash": "f2466d9dbd9259382a699993255e3dd4",
+    "semantic_hash": "f2466d9dbd9259382a699993255e3dd4"
+  },
+  "README-HE.md": {
+    "mtime": 1784714619.2183168,
+    "ast_hash": "98ee6db4fd68f2610d29b37ef80a42c9",
+    "semantic_hash": "98ee6db4fd68f2610d29b37ef80a42c9"
+  },
+  "README.md": {
+    "mtime": 1784714577.342813,
+    "ast_hash": "50b69329d06a2a89b30f07b7e3edc23f",
+    "semantic_hash": "50b69329d06a2a89b30f07b7e3edc23f"
+  },
+  "SECURITY.md": {
+    "mtime": 1784615874.7782903,
+    "ast_hash": "9aca9214d323ece9b3c70f4ff1eac719",
+    "semantic_hash": "9aca9214d323ece9b3c70f4ff1eac719"
+  },
+  "chrome-plugin/fonts/NOTICE.txt": {
+    "mtime": 1784615537.9896066,
+    "ast_hash": "ebf1b3da6528753d7374ffcf70436a91",
+    "semantic_hash": "ebf1b3da6528753d7374ffcf70436a91"
+  },
+  "chrome-plugin/popup.html": {
+    "mtime": 1784615421.7300453,
+    "ast_hash": "3927158ca6feec328db63b766b5718e0",
+    "semantic_hash": "3927158ca6feec328db63b766b5718e0"
+  },
+  "desktop/ADR.md": {
+    "mtime": 1784712063.1266837,
+    "ast_hash": "0bf9e2fee61708d072eb7c6281ab5590",
+    "semantic_hash": "0bf9e2fee61708d072eb7c6281ab5590"
+  },
+  "desktop/DESIGN.md": {
+    "mtime": 1784712085.2085195,
+    "ast_hash": "0511811a2f3591dce0c06808317f7cd4",
+    "semantic_hash": "0511811a2f3591dce0c06808317f7cd4"
+  },
+  "desktop/README.md": {
+    "mtime": 1784714802.4500644,
+    "ast_hash": "98def3098912a77d560b3fd8f7fd2bb4",
+    "semantic_hash": "98def3098912a77d560b3fd8f7fd2bb4"
+  },
+  "chrome-plugin/assets/hero.svg": {
+    "mtime": 1784614112.6402285,
+    "ast_hash": "59cad7aaca99197393e395cdba1d57c0",
+    "semantic_hash": "59cad7aaca99197393e395cdba1d57c0"
+  },
+  "docs/diagrams/chrome-flow.svg": {
+    "mtime": 1784617602.8570337,
+    "ast_hash": "e1b11c00fdb5f010289df9ad296dd2dd",
+    "semantic_hash": "e1b11c00fdb5f010289df9ad296dd2dd"
+  },
+  "docs/diagrams/desktop-patch-flow.svg": {
+    "mtime": 1784618090.1920366,
+    "ast_hash": "27fd3735c12412ccc670af04bc0a65cf",
+    "semantic_hash": "27fd3735c12412ccc670af04bc0a65cf"
+  },
+  "docs/diagrams/project-map.svg": {
+    "mtime": 1784618076.1631413,
+    "ast_hash": "b9ed8cfef71231a6690b15dfec97f359",
+    "semantic_hash": "b9ed8cfef71231a6690b15dfec97f359"
+  },
+  "docs/diagrams/restore-safety.svg": {
+    "mtime": 1784618100.045237,
+    "ast_hash": "5190b181ad058b53e4668cf30cce1ba4",
+    "semantic_hash": "5190b181ad058b53e4668cf30cce1ba4"
+  },
+  "docs/diagrams/rtl-problem.svg": {
+    "mtime": 1784617954.2122276,
+    "ast_hash": "fcf9191594f9378657e4071a9b4b58c2",
+    "semantic_hash": "fcf9191594f9378657e4071a9b4b58c2"
+  }
+}
