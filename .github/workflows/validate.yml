@@ -25,6 +25,9 @@ jobs:
       - name: Install desktop dependencies
         run: npm --prefix desktop ci
 
+      - name: Install fonttools
+        run: pip3 install --user fonttools brotli
+
       - name: Validate source and manifest
         run: npm test
 
